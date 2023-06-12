@@ -7,7 +7,6 @@ import math
 from nltk.stem.snowball import SnowballStemmer
 import nltk
 nltk.download('punkt')
-import re
 
 direction_dataset_clean = "./src/clean_data" # Leemos del dataset ya limpio
 nanmes_docs = os.listdir(direction_dataset_clean) #Obtener la lista de los nombres de los archivos del dataset limpio
@@ -136,4 +135,4 @@ def search_tweet(query, k): # Retorna los tweets encontrados
     return lista[:k]
 
 
-print(search_tweet("hola perras" , 1))
+#print(search_tweet("hola perras" , 1))
