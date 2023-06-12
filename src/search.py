@@ -11,7 +11,7 @@ nltk.download('punkt')
 direction_dataset_clean = "./src/clean_data" # Leemos del dataset ya limpio
 nanmes_docs = os.listdir(direction_dataset_clean) #Obtener la lista de los nombres de los archivos del dataset limpio
 
-direction_indexs = ".src/indexs/index"
+direction_indexs = "./src/indexs/index"
 ind = {}  
 
 
