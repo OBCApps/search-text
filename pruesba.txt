@@ -1,0 +1,7 @@
+sudo apt-get update
+sudo apt install python3-pip
+sudo apt install git
+sudo git clone https://github.com/smurfcoders/fastapi-hosting.git
+cd fastapi-hosting
+pip install -r requirements.txt
+python3 -m uvicorn main:app --host 0.0.0.0 --port 8000
