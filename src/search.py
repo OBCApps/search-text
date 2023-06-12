@@ -10,7 +10,7 @@ import re
 direction_dataset_clean = "./src/clean_data" # Leemos del dataset ya limpio
 nanmes_docs = os.listdir(direction_dataset_clean) #Obtener la lista de los nombres de los archivos del dataset limpio
 
-direction_indexs = "indexs//index"
+direction_indexs = ".src/indexs/index"
 ind = {}  
 
 
@@ -19,7 +19,7 @@ ind = {}
 
 invalid_characters = [ "¡", "«", "»", ".", ",", ";", "(", ")", ":", "@", "RT", "#", "|", "¿", "?", "!", "https", "$", "%", "&", "'", "''", "..", "...", '\'', '\"' ] 
 
-with open('dataset//stoplist.txt') as file:
+with open('./src/dataset/stoplist.txt') as file:
     stoplist = [line.lower().strip() for line in file]
 stoplist += invalid_characters
 
@@ -319,7 +319,7 @@ def search_tweet(query, k): # Retorna los tweets encontrados
     lista = []
     
     for i in documentos:
-        with open(direction_dataset_clean + '//' + i[0], 'r', encoding='utf-8' ) as documentos_encontrados:
+        with open(direction_dataset_clean + '/' + i[0], 'r', encoding='utf-8' ) as documentos_encontrados:
             relevantes_cargados= json.load(documentos_encontrados)
             for letter in palabras: # Query
                 for twet in relevantes_cargados:
