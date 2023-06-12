@@ -5,6 +5,7 @@ from collections import Counter
 import math
 from nltk.stem.snowball import SnowballStemmer
 import nltk
+nltk.download('punkt')
 import re
 
 direction_dataset_clean = "./src/clean_data" # Leemos del dataset ya limpio
