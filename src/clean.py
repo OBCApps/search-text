@@ -4,7 +4,7 @@ import re
 
 invalid_characters = [ "¡", "«", "»", ".", ",", ";", "(", ")", ":", "@", "RT", "#", "|", "¿", "?", "!", "https", "$", "%", "&", "'", "''", "..", "...", '\'', '\"' ] 
 
-with open('dataset/stoplist.txt') as file:
+with open('.src/dataset/stoplist.txt') as file:
     stoplist = [line.lower().strip() for line in file]
 stoplist += invalid_characters
 
