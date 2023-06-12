@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from src.search import search_tweet
+#from src.search import search_tweet
 app = FastAPI()
 
 @app.get("/prueba")
