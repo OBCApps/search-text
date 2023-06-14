@@ -19,11 +19,12 @@ class Search(BaseModel):
 
 
 
-@app.get("/search")
+@app.post("/search")
 def read_root(buscar : Search):
     print("buscar" , buscar)
     #response = JSONResponse(content = search_tweet(buscar.query , buscar.cantidad) , media_type="application/json")
     response = search_tweet(buscar.query , buscar.cantidad)
+
     return response
 
 @app.get("/prueba")
