@@ -48,7 +48,7 @@ def get_frecuency(palabras): # Hace limpieza, filtra palabras clave, retrona fre
     return Counter(roots) 
 
 # Busqueda
-""" def documentos_relevantes(query, k): # Retorna una lista ordenada de los documentos mas relevantes en una consulta (query)
+def documentos_relevantes(query, k): # Retorna una lista ordenada de los documentos mas relevantes en una consulta (query)
     #cantidadTF, tf = get_frecuency(query) # Palabras con sus frecuencias (Diccionario )
     tf = get_frecuency(query)
     dic = {} 
@@ -88,58 +88,7 @@ def get_frecuency(palabras): # Hace limpieza, filtra palabras clave, retrona fre
         if lenght1[i] != 0:
             scores[i] = scores[i]/(lenght1[i]*lenght2)
     orderedDic = sorted(scores.items(), key=lambda it: it[1], reverse=True)
-    return orderedDic """
-def documentos_relevantes(query, k):
-    frecuencia_tf = obtener_frecuencia(query)
-    pesos_tfidf = calcular_pesos_tf_idf(frecuencia_tf)
-    scores = calcular_scores(pesos_tfidf)
-    documentos_ordenados = ordenar_documentos(scores)
-    return documentos_ordenados[:k]
-
-def obtener_frecuencia(query):
-    frecuencia = {}
-    for palabra in query:
-        frecuencia[palabra] = frecuencia.get(palabra, 0) + 1
-    return frecuencia
-
-def calcular_pesos_tf_idf(tf):
-    diccionario_pesos = {}
-    total_documentos = len(nanmes_docs)
-    for termino, frecuencia in tf.items():
-        peso_tf = 1 + math.log(frecuencia)
-        df = obtener_df(termino)
-        if df == 0:
-            idf = 0  # Asigna un valor predeterminado cuando el df es cero
-        else:
-            idf = math.log(total_documentos / df)
-        peso_tfidf = peso_tf * idf
-        diccionario_pesos[termino] = peso_tfidf
-    return diccionario_pesos
-
-
-def calcular_scores(pesos_tfidf):
-    scores = {documento: 0 for documento in nanmes_docs}
-    for termino, peso_tfidf in pesos_tfidf.items():
-        valores = inverted[termino].split(';')
-        for valor in valores:
-            documento, peso = valor.split(',')
-            scores[documento] += float(peso) * peso_tfidf
-    return scores
-
-def ordenar_documentos(scores):
-    documentos_ordenados = sorted(scores.items(), key=lambda x: x[1], reverse=True)
-    return documentos_ordenados
-
-def obtener_df(termino):
-    df = 0
-    for valores in inverted.values():
-        documentos = valores.split(';')
-        for valor in documentos:
-            documento, _ = valor.split(',')
-            if termino == documento:
-                df += 1
-                break
-    return df
+    return orderedDic
 
 
 
@@ -171,5 +120,3 @@ def search_tweet(query, k): # Retorna los tweets encontrados
     #print(len(list_fined[:k]))    
     return list_fined[:k]
 
-inverted = read_inverted()
-#print(search_tweet("hola perras" , 1))
