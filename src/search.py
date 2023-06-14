@@ -102,15 +102,20 @@ def obtener_frecuencia(query):
         frecuencia[palabra] = frecuencia.get(palabra, 0) + 1
     return frecuencia
 
-def calcular_pesos_tf_idf(frecuencia_tf):
-    pesos_tfidf = {}
+def calcular_pesos_tf_idf(tf):
+    diccionario_pesos = {}
     total_documentos = len(nanmes_docs)
-    for termino, frecuencia in frecuencia_tf.items():
+    for termino, frecuencia in tf.items():
         peso_tf = 1 + math.log(frecuencia)
-        idf = math.log(total_documentos / obtener_df(termino))
+        df = obtener_df(termino)
+        if df == 0:
+            idf = 0  # Asigna un valor predeterminado cuando el df es cero
+        else:
+            idf = math.log(total_documentos / df)
         peso_tfidf = peso_tf * idf
-        pesos_tfidf[termino] = peso_tfidf
-    return pesos_tfidf
+        diccionario_pesos[termino] = peso_tfidf
+    return diccionario_pesos
+
 
 def calcular_scores(pesos_tfidf):
     scores = {documento: 0 for documento in nanmes_docs}
