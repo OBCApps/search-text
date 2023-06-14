@@ -28,15 +28,13 @@ async def read_root(buscar : Search):
         #response = JSONResponse(content = search_tweet(buscar.query , buscar.cantidad) , media_type="application/json")
         inicio = time.time()
         response = search_tweet(buscar.query , buscar.cantidad)
-        print(response)
         fin = time.time()
 
         json_data = {            
             "tiempo_ejecucion": fin - inicio,
-            "respuesta": json.loads(json.dumps([list(i) for i in response])),
+            "respuesta":  response,
         }
-        
-        
+                
         return json_data
     except KeyError:
         raise HTTPException(status_code=404, detail="La palabra no fue encontrada")
