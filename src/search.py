@@ -28,7 +28,7 @@ def read_inverted():
                 
                 for line in enumerate(indice): 
 
-                    pair = line[:len(line)-2].split(':') 
+                    pair = str(line[:len(line)-2]).split(':') 
 
                     if pair[0] in ind:
                         ind[pair[0]] = str(ind[pair[0]]) + ";" + str(pair[1]) 
@@ -68,8 +68,8 @@ def documentos_relevantes(query):
         
         print("tf[i]" , i)
         print("names_docs" , nanmes_docs)
-        print("inverted[i]" , inverted[i])
-        wtfidf = math.log(1 + tf[i]) * math.log(len(nanmes_docs) / len(inverted[i].split(';')))    
+        print("inverted[i]" , inverted)
+        wtfidf = math.log(1 + tf[i]) * math.log(len(nanmes_docs) / len(str(inverted[i]).split(';')))    
         
         
         dic[i] = wtfidf
