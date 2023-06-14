@@ -17,7 +17,7 @@ ind = {}
 
 
 # Busqueda
-def read_inverted(): #Lee los indices, y retorna un diccionario de indices(Ya une con todos los archivos)
+""" def read_inverted(): #Lee los indices, y retorna un diccionario de indices(Ya une con todos los archivos)
     print("readInverted():")    
     cont = 1
     
@@ -36,6 +36,24 @@ def read_inverted(): #Lee los indices, y retorna un diccionario de indices(Ya un
                         if len(pair) >= 2:
                             ind[pair[0]] = str(pair[1])
                         #ind[pair[0]] = str(pair[1]) # Si no existe crea uno nuevo
+            cont += 1
+        else:
+            break
+    return ind """
+
+def read_inverted():
+    
+    cont = 1
+    while(True):
+        pat = direction_indexs + str(cont)+".txt"
+        if os.path.exists(pat):
+            with open(pat, 'r', encoding="ISO-8859-1") as f:
+                for index, line in enumerate(f):
+                    pair = line[:len(line)-2].split(':')
+                    if pair[0] in ind:
+                        ind[pair[0]] = str(ind[pair[0]]) + ";" + str(pair[1])          
+                    else:
+                        ind[pair[0]] = str(pair[1])
             cont += 1
         else:
             break
