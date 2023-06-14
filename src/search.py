@@ -15,10 +15,7 @@ direction_indexs = "./src/indexs/index"
 ind = {}  
 
 
-def parser(line):
-    print("line: " , line)
-    i = line.split(':')
-    return i
+
 
 def read_inverted(): 
     print("readInverted():")    
@@ -31,7 +28,7 @@ def read_inverted():
                 
                 for index , line in enumerate(indice): 
                     print("for line" , line)
-                    pair = parser(line[:len(line)-2])
+                    pair = line[:len(line)-2].split(':')
 
                     if pair[0] in ind:
                         ind[pair[0]] = str(ind[pair[0]]) + ";" + str(pair[1]) 
