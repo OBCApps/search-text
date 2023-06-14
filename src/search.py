@@ -33,8 +33,7 @@ def read_inverted():
                     if pair[0] in ind:
                         ind[pair[0]] = str(ind[pair[0]]) + ";" + str(pair[1]) 
                     else:
-                        if len(pair) >= 2:
-                            ind[pair[0]] = str(pair[1])
+                        ind[pair[0]] = str(pair[1])
                         
             cont += 1
         else:
