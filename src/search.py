@@ -89,7 +89,7 @@ def get_frecuency(palabras): # Hace limpieza, filtra palabras clave, retrona fre
             scores[i] = scores[i]/(lenght1[i]*lenght2)
     orderedDic = sorted(scores.items(), key=lambda it: it[1], reverse=True)
     return orderedDic """
-def buscar_documentos_relevantes(query, k):
+def documentos_relevantes(query, k):
     frecuencia_tf = obtener_frecuencia(query)
     pesos_tfidf = calcular_pesos_tf_idf(frecuencia_tf)
     scores = calcular_scores(pesos_tfidf)
