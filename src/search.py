@@ -40,6 +40,9 @@ ind = {}
         else:
             break
     return ind """
+def parser(line):
+    i = line.split(':')
+    return i
 
 def read_inverted():
     
@@ -49,7 +52,7 @@ def read_inverted():
         if os.path.exists(pat):
             with open(pat, 'r', encoding="ISO-8859-1") as f:
                 for index, line in enumerate(f):
-                    pair = line[:len(line)-2].split(':')
+                    pair = parser(line[:len(line)-2])
                     if pair[0] in ind:
                         ind[pair[0]] = str(ind[pair[0]]) + ";" + str(pair[1])          
                     else:
