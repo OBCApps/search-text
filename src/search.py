@@ -28,7 +28,7 @@ def read_inverted(): #Lee los indices, y retorna un diccionario de indices(Ya un
                 #print("leyendo indices: " , f)
                 for line in enumerate(indice): 
 
-                    pair = line[:len(line)-2].split(':') # No leemos el \n
+                    pair = str(line[:len(line)-2]).split(':') # No leemos el \n
 
                     if pair[0] in ind:
                         ind[pair[0]] = str(ind[pair[0]]) + ";" + str(pair[1]) #Si es que ya existe, concatenamos los documentos   
