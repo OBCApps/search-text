@@ -27,7 +27,7 @@ def read_inverted():
             with open(pat, 'r', encoding="ISO-8859-1") as indice: 
                 
                 for index , line in enumerate(indice): 
-                    print("for line" , line)
+                    
                     pair = line[:len(line)-2].split(':')
 
                     if pair[0] in ind:
