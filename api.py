@@ -5,6 +5,8 @@ import json
 from src.search import search_tweet
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
+from typing import List
+
 app = FastAPI()
 app.add_middleware (
     CORSMiddleware, 
@@ -46,6 +48,17 @@ def read_root():
     response = search_tweet("prueba " , 3)
     return response
 
-@app.get("/add-json")
-def add_json():
-    return "hola"
+
+
+
+@app.post("/add-json")
+async def add_json(data: List[dict]):    
+    print(data)
+    for item in data:
+        value1 = item["id"]
+        value2 = item["text"]
+        print(f"id: {value1} | id: {value2}")
+        
+        
+        
+    return {"message": "Datos recibidos correctamente"}
