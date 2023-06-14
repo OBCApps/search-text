@@ -29,7 +29,7 @@ def read_inverted():
         if os.path.exists(pat): 
             with open(pat, 'r', encoding="ISO-8859-1") as indice: 
                 
-                for line in enumerate(indice): 
+                for index , line in enumerate(indice): 
                     print("for line" , line)
                     pair = parser(line[:len(line)-2])
 
