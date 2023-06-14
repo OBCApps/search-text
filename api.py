@@ -21,12 +21,14 @@ class Search(BaseModel):
 
 @app.get("/search")
 def read_root(buscar : Search):
-    response = JSONResponse(content = search_tweet(buscar.query , buscar.cantidad) , media_type="application/json")
+    #response = JSONResponse(content = search_tweet(buscar.query , buscar.cantidad) , media_type="application/json")
+    response = search_tweet(buscar.query , buscar.cantidad)
     return response
 
 @app.get("/prueba")
 def read_root():
-    response = JSONResponse(content = search_tweet("prueba " , 3) , media_type="application/json")
+    #response = JSONResponse(content = search_tweet("prueba " , 3) , media_type="application/json")
+    response = search_tweet("prueba " , 3)
     return response
 
 @app.get("/add-json")
