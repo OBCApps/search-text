@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from src.search import search_tweet
 from fastapi.responses import JSONResponse
@@ -20,12 +20,16 @@ class Search(BaseModel):
 
 
 @app.post("/search")
-def read_root(buscar : Search):
-    print("buscar" , buscar)
-    #response = JSONResponse(content = search_tweet(buscar.query , buscar.cantidad) , media_type="application/json")
-    response = search_tweet(buscar.query , buscar.cantidad)
+async def read_root(buscar : Search):
+    try:
+        print("buscar" , buscar)
+        #response = JSONResponse(content = search_tweet(buscar.query , buscar.cantidad) , media_type="application/json")
+        response = search_tweet(buscar.query , buscar.cantidad)
 
-    return response
+        return response
+    except KeyError:
+        raise HTTPException(status_code=404, detail="La palabra no fue encontrada")
+
 
 @app.get("/prueba")
 def read_root():
