@@ -66,7 +66,7 @@ def read_inverted():
 def get_frecuency(palabras): # Hace limpieza, filtra palabras clave, retrona frecuencias
     stemmer = SnowballStemmer('spanish') # Cojemos las palabras clave    
     roots = [stemmer.stem(i) for i in palabras] # Convertimos todas las palbras en su base raiz
-    return len(roots),Counter(roots) 
+    return Counter(roots) 
 
 def df_ind(word, ind):
     line = ind[word]
