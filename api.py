@@ -12,5 +12,5 @@ app.add_middleware (
 
 @app.get("/search")
 def read_root():
-    print("read")
+    
     return search_tweet('prueba de amor' , 2)
