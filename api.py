@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from src.search import search_tweet
 from pydantic import BaseModel
+from src.search import search_tweet
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
@@ -21,6 +21,7 @@ class Search(BaseModel):
 
 @app.get("/search")
 def read_root(buscar : Search):
+    print("buscar" , buscar)
     #response = JSONResponse(content = search_tweet(buscar.query , buscar.cantidad) , media_type="application/json")
     response = search_tweet(buscar.query , buscar.cantidad)
     return response
