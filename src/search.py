@@ -33,7 +33,9 @@ def read_inverted(): #Lee los indices, y retorna un diccionario de indices(Ya un
                     if pair[0] in ind:
                         ind[pair[0]] = str(ind[pair[0]]) + ";" + str(pair[1]) #Si es que ya existe, concatenamos los documentos   
                     else:
-                        ind[pair[0]] = str(pair[1]) # Si no existe crea uno nuevo
+                        if len(pair) >= 2:
+                            ind[pair[0]] = str(pair[1])
+                        #ind[pair[0]] = str(pair[1]) # Si no existe crea uno nuevo
             cont += 1
         else:
             break
