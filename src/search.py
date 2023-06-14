@@ -112,7 +112,7 @@ def search_valid(documentos , palabras):
 
 def search_tweet(query, k): 
     print("search_tweet(query, k):")
-    documentos = documentos_relevantes(clean_all(query), k) 
+    documentos = documentos_relevantes(clean_all(query)) 
     palabras = clean_all(query) 
 
     list_fined = search_valid(documentos , palabras)
