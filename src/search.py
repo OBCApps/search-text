@@ -28,7 +28,7 @@ def read_inverted():
                 
                 for line in enumerate(indice): 
 
-                    pair = line[:len(line)-2].split(':') 
+                    pair = str(line[:len(line)-2]).split(':') 
 
                     if pair[0] in ind:
                         ind[pair[0]] = str(ind[pair[0]]) + ";" + str(pair[1]) 
