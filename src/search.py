@@ -167,5 +167,5 @@ def search_tweet(query, k): # Retorna los tweets encontrados
     #print(len(list_fined[:k]))    
     return list_fined[:k]
 
-inverted = read_inverted()
+#inverted = read_inverted()
 #print(search_tweet("hola perras" , 1))
