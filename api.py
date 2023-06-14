@@ -33,7 +33,7 @@ async def read_root(buscar : Search):
 
         json_data = {            
             "tiempo_ejecucion": fin - inicio,
-            "respuesta": json.loads(json.dumps(list(response))),
+            "respuesta": json.loads(json.dumps(response)),
         }
         
         
