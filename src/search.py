@@ -65,6 +65,10 @@ def get_frecuency(palabras): # Hace limpieza, filtra palabras clave, retrona fre
     roots = [stemmer.stem(i) for i in palabras] # Convertimos todas las palbras en su base raiz
     return len(roots),Counter(roots) 
 
+def df_ind(word, ind):
+    line = ind[word]
+    line = line.split(';')
+    return len(line)
 # Busqueda
 def documentos_relevantes(query, k): # Retorna una lista ordenada de los documentos mas relevantes en una consulta (query)
     #cantidadTF, tf = get_frecuency(query) # Palabras con sus frecuencias (Diccionario )
@@ -86,7 +90,7 @@ def documentos_relevantes(query, k): # Retorna una lista ordenada de los documen
         # math.log(1 + tf[i]): Aplica una transformación logarítmica a la frecuencia del término en el documento. El 1 es para evitar tomar el logaritmo de cero en caso de que el término no aparezca en el documento.
         # math.log(len(archivos)/df_ind(i, inverted)) : Calcula la frecuencia inversa del termino , para reducir la importancia del termino que aparecen en muchos documentos
          
-        wtfidf = math.log(1 + tf[i]) * math.log(len(nanmes_docs) / len(str(inverted[i]).split(';'))    ) 
+        wtfidf = math.log(1 + tf[i]) * math.log(len(nanmes_docs) / df_ind(i, inverted)    ) 
         #wtfidf = math.log(1 + tf[i] / cantidadTF ) * math.log(len(nanmes_docs) / len(inverted[i].split(';'))    ) 
         # Guaramos en el diccionario su peso calculado
         dic[i] = wtfidf
@@ -107,6 +111,8 @@ def documentos_relevantes(query, k): # Retorna una lista ordenada de los documen
             scores[i] = scores[i]/(lenght1[i]*lenght2)
     orderedDic = sorted(scores.items(), key=lambda it: it[1], reverse=True)
     return orderedDic
+
+
 """ def documentos_relevantes(query, k):
     tf = obtener_frecuencia(query)
     diccionario_pesos = calcular_pesos_tf_idf(tf)
@@ -185,5 +191,3 @@ def search_tweet(query, k): # Retorna los tweets encontrados
     #print(len(list_fined[:k]))    
     return list_fined[:k]
 
-#inverted = read_inverted()
-#print(search_tweet("hola perras" , 1))
