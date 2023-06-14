@@ -48,7 +48,7 @@ def get_frecuency(palabras): # Hace limpieza, filtra palabras clave, retrona fre
     return len(roots),Counter(roots) 
 
 # Busqueda
-""" def documentos_relevantes(query, k): # Retorna una lista ordenada de los documentos mas relevantes en una consulta (query)
+def documentos_relevantes(query, k): # Retorna una lista ordenada de los documentos mas relevantes en una consulta (query)
     #cantidadTF, tf = get_frecuency(query) # Palabras con sus frecuencias (Diccionario )
     tf = get_frecuency(query)
     dic = {} 
@@ -88,8 +88,8 @@ def get_frecuency(palabras): # Hace limpieza, filtra palabras clave, retrona fre
         if lenght1[i] != 0:
             scores[i] = scores[i]/(lenght1[i]*lenght2)
     orderedDic = sorted(scores.items(), key=lambda it: it[1], reverse=True)
-    return orderedDic """
-def documentos_relevantes(query, k):
+    return orderedDic
+""" def documentos_relevantes(query, k):
     tf = obtener_frecuencia(query)
     diccionario_pesos = calcular_pesos_tf_idf(tf)
     scores = calcular_scores(diccionario_pesos)
@@ -135,7 +135,7 @@ def obtener_df(termino):
                 df += 1
                 break
     return df
-
+ """
 
 
 
