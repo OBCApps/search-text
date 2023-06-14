@@ -68,7 +68,7 @@ def documentos_relevantes(query, k): # Retorna una lista ordenada de los documen
         # math.log(1 + tf[i]): Aplica una transformación logarítmica a la frecuencia del término en el documento. El 1 es para evitar tomar el logaritmo de cero en caso de que el término no aparezca en el documento.
         # math.log(len(archivos)/df_ind(i, inverted)) : Calcula la frecuencia inversa del termino , para reducir la importancia del termino que aparecen en muchos documentos
          
-        wtfidf = math.log(1 + tf[i]) * math.log(len(nanmes_docs) / len(inverted[i].split(';'))    ) 
+        wtfidf = math.log(1 + tf[i]) * math.log(len(nanmes_docs) / len(str(inverted[i]).split(';'))    ) 
         #wtfidf = math.log(1 + tf[i] / cantidadTF ) * math.log(len(nanmes_docs) / len(inverted[i].split(';'))    ) 
         # Guaramos en el diccionario su peso calculado
         dic[i] = wtfidf

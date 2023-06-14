@@ -10,7 +10,7 @@ app.add_middleware (
     allow_headers = ["*"],
 )
 
-@app.get("/")
+@app.get("/search")
 def read_root():
     print("read")
     return search_tweet('prueba de amor' , 2)
