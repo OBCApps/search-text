@@ -5,7 +5,7 @@ import json
 from src.search import search_tweet
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
-from typing import List
+from typing import List , Dict
 
 app = FastAPI()
 app.add_middleware (
@@ -52,13 +52,11 @@ def read_root():
 
 
 @app.post("/add-json")
-async def add_json(data: List[dict]):    
-    print(data)
+async def jsn_add(data: List[Dict[str, str]]):
+    print("data" , data)
     for item in data:
-        value1 = item["id"]
-        value2 = item["text"]
-        print(f"id: {value1} | id: {value2}")
-        
-        
-        
+        for key, value in item.items():
+            # Realiza las operaciones necesarias con los datos
+            print(key, value)
+    
     return {"message": "Datos recibidos correctamente"}
