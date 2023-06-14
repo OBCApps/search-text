@@ -16,6 +16,7 @@ ind = {}
 
 
 def parser(line):
+    print("line: " , line)
     i = line.split(':')
     return i
 
@@ -31,7 +32,7 @@ def read_inverted():
                 for line in enumerate(indice): 
 
                     pair = parser(line[:len(line)-2])
-
+            
                     if pair[0] in ind:
                         ind[pair[0]] = str(ind[pair[0]]) + ";" + str(pair[1]) 
                     else:
