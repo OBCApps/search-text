@@ -30,9 +30,9 @@ def read_inverted():
             with open(pat, 'r', encoding="ISO-8859-1") as indice: 
                 
                 for line in enumerate(indice): 
-
+                    print("for line" , line)
                     pair = parser(line[:len(line)-2])
-            
+
                     if pair[0] in ind:
                         ind[pair[0]] = str(ind[pair[0]]) + ";" + str(pair[1]) 
                     else:
