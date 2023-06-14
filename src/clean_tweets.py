@@ -1,37 +1,46 @@
 
-
 import os
 import json
-import errno
-
-input_directory = "dataset\\data_elecciones"
-curpath = os.path.abspath(os.curdir) # Almacena la ruta absoluta del directorio actual
-nanmes_docs = os.listdir(input_directory) #Obtener la lista de los nombres de los archivos del dataset limpio
 
 
+dataset_input = "dataset\\data_elecciones"
+diretion_new_dataset = "clean_data"
 
-def gerenate_clean_tweets(): # Leemos el dataset y lo guardamos en un archivo limpio
-    for filename in os.listdir(input_directory): # Recorremos todos los nombres
-        if filename.endswith(".json") :  # Carga un archivo json
-            with open(input_directory + '\\' + filename, 'r', encoding='utf-8') as all_tweets:
-                all_tweets_dictionary = json.load(all_tweets)
-                result = {}
-                for tweet in all_tweets_dictionary: # LA forma en que se guarda es en un diccionario donde solo queda el id y el text
-                    result[tweet["id"]] = tweet["text"]
-                file = "clean_data\\"+filename
-                print("file")
-                if not os.path.exists(os.path.dirname(file)):
-                    try:
-                        os.makedirs(os.path.dirname(file)) # Verifica si el directorio existe
-                    except OSError as exc: # Guard against race condition
-                        if exc.errno != errno.EEXIST:
-                            raise
-                with open(file, "w", encoding='utf-8') as clean_file:
-                    clean_file.write(json.dumps(result)) 
+def load_tweets_from_file(filename):
+    with open(filename, 'r', encoding='utf-8') as file:
+        return json.load(file)
+
+def extract_clean_tweets(tweets):
+    clean_tweets = {}
+    for tweet in tweets:
+        if "id" in tweet and "text" in tweet:
+            clean_tweets[tweet["id"]] = tweet["text"]
+    return clean_tweets
+
+def save_clean_tweets_to_file(clean_tweets, filename):
+    directory = os.path.dirname(filename)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    with open(filename, "w", encoding='utf-8') as file:
+        json.dump(clean_tweets, file)
+
+def generate_clean_tweets():
+    if not os.path.exists(diretion_new_dataset):
+        os.makedirs(diretion_new_dataset)
+
+    for filename in os.listdir(dataset_input):
+        if filename.endswith(".json"):
+            input_file = os.path.join(dataset_input, filename)
+            output_file = os.path.join(diretion_new_dataset, filename)
+
+            tweets = load_tweets_from_file(input_file)
+            clean_tweets = extract_clean_tweets(tweets)
+            save_clean_tweets_to_file(clean_tweets, output_file)
 
 def main():
-    print("... Limpiando tweets ... ")
-    gerenate_clean_tweets()
-    print("... Limpieza finalizada ... ")
+    print("... Limpiando tweets ...")
+    generate_clean_tweets()
+    print("... Limpieza finalizada ...")
+
 
 main()

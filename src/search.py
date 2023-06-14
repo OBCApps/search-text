@@ -16,36 +16,22 @@ ind = {}
 
 
 
-
-
 # Busqueda
-def parser(line):
-    i = line.split(':')
-    return i
-
-
-# Busqueda
-def df_ind(word, ind):
-    line = ind[word]
-    line = line.split(';')
-    return len(line)
-
-# Busqueda
-def readInverted(): #Lee los indices, y retorna un diccionario de indices(Ya une con todos los archivos)
-    print("readInverted():")
-    
+def read_inverted(): #Lee los indices, y retorna un diccionario de indices(Ya une con todos los archivos)
+    print("readInverted():")    
     cont = 1
-    
     
     while(True): # Lee los indices invertidos
         pat = direction_indexs + str(cont)+".txt"
         if os.path.exists(pat): # Mientras existe el archivo
-            with open(pat, 'r', encoding="ISO-8859-1") as f: # Abre el archivo
+            with open(pat, 'r', encoding="ISO-8859-1") as indice: # Abre el archivo
                 #print("leyendo indices: " , f)
-                for index, line in enumerate(f):  # Leemos de forma enumerada lo del archivo abierto
-                    pair = parser(line[:len(line)-2])
+                for line in enumerate(indice): 
+
+                    pair = line[:len(line)-2].split(':') # No leemos el \n
+
                     if pair[0] in ind:
-                        ind[pair[0]] = str(ind[pair[0]]) + ";" + str(pair[1]) #Si es que ya existe, concatenamos al anterior   
+                        ind[pair[0]] = str(ind[pair[0]]) + ";" + str(pair[1]) #Si es que ya existe, concatenamos los documentos   
                     else:
                         ind[pair[0]] = str(pair[1]) # Si no existe crea uno nuevo
             cont += 1
@@ -54,18 +40,19 @@ def readInverted(): #Lee los indices, y retorna un diccionario de indices(Ya une
     return ind
 
 # Busqueda
-def get_frecuency(name): # Hace limpieza, filtra palabras clave, retrona frecuencias
-    stemmer = SnowballStemmer('spanish') # Cojemos las palabras clave
-    palabras = clean_all(name)
+def get_frecuency(palabras): # Hace limpieza, filtra palabras clave, retrona frecuencias
+    stemmer = SnowballStemmer('spanish') # Cojemos las palabras clave    
     roots = [stemmer.stem(i) for i in palabras] # Convertimos todas las palbras en su base raiz
-    return Counter(roots) # Cuenta la frecuencia de cada palabra (devuelve en diccionario)
+    return len(roots),Counter(roots) 
 
 # Busqueda
-def documentos_relevantes(query, k): # Retorna una lista ordenada de los documentos mas relevantes en una consulta (query)
-    tf = get_frecuency(query) # Palabras con sus frecuencias (Diccionario )
+""" def documentos_relevantes(query, k): # Retorna una lista ordenada de los documentos mas relevantes en una consulta (query)
+    #cantidadTF, tf = get_frecuency(query) # Palabras con sus frecuencias (Diccionario )
+    tf = get_frecuency(query)
     dic = {} 
     
-    inverted = readInverted()# Indices, palabras y documentos (Diccionario)
+    inverted = read_inverted()# Indices, palabras y documentos (Diccionario)
+    
     scores = {}
     lenght1 = {}
     # aseguramos que los puntajes y las longitudes se inicien en 0 antes de calcularlos 
@@ -73,13 +60,14 @@ def documentos_relevantes(query, k): # Retorna una lista ordenada de los documen
         scores[i] = 0
         lenght1[i] = 0
     
-    lenght2 = 0 #Para calcular la suma de los cuadrados de los pesos
-    #REcorremos las palabras con sus frecuencias
+    lenght2 = 0 # Para calcular la suma de los cuadrados de los pesos
+    # REcorremos las palabras con sus frecuencias
     for i in tf:
         # math.log(1 + tf[i]): Aplica una transformación logarítmica a la frecuencia del término en el documento. El 1 es para evitar tomar el logaritmo de cero en caso de que el término no aparezca en el documento.
         # math.log(len(archivos)/df_ind(i, inverted)) : Calcula la frecuencia inversa del termino , para reducir la importancia del termino que aparecen en muchos documentos
          
-        wtfidf = math.log(1 + tf[i]) * math.log(len(nanmes_docs)/df_ind(i, inverted)) # Representa al peso: tf-idf
+        wtfidf = math.log(1 + tf[i]) * math.log(len(nanmes_docs) / len(inverted[i].split(';'))    ) 
+        #wtfidf = math.log(1 + tf[i] / cantidadTF ) * math.log(len(nanmes_docs) / len(inverted[i].split(';'))    ) 
         # Guaramos en el diccionario su peso calculado
         dic[i] = wtfidf
 
@@ -98,27 +86,63 @@ def documentos_relevantes(query, k): # Retorna una lista ordenada de los documen
         if lenght1[i] != 0:
             scores[i] = scores[i]/(lenght1[i]*lenght2)
     orderedDic = sorted(scores.items(), key=lambda it: it[1], reverse=True)
-    return orderedDic
-    #return orderedDic[:k]
+    return orderedDic """
+def documentos_relevantes(query, k):
+    tf = obtener_frecuencia(query)
+    diccionario_pesos = calcular_pesos_tf_idf(tf)
+    scores = calcular_scores(diccionario_pesos)
+    documentos_ordenados = ordenar_documentos(scores)
+    return documentos_ordenados[:k]
+
+def obtener_frecuencia(query):
+    frecuencia = {}
+    for palabra in query:
+        frecuencia[palabra] = frecuencia.get(palabra, 0) + 1
+    return frecuencia
+
+def calcular_pesos_tf_idf(tf):
+    diccionario_pesos = {}
+    total_documentos = len(nanmes_docs)
+    for termino, frecuencia in tf.items():
+        peso_tf = 1 + math.log(frecuencia)
+        idf = math.log(total_documentos / obtener_df(termino))
+        peso_tfidf = peso_tf * idf
+        diccionario_pesos[termino] = peso_tfidf
+    return diccionario_pesos
+
+def calcular_scores(diccionario_pesos):
+    scores = {documento: 0 for documento in nanmes_docs}
+    for termino, peso_tfidf in diccionario_pesos.items():
+        valores = inverted[termino].split(';')
+        for valor in valores:
+            documento, peso = valor.split(',')
+            scores[documento] += float(peso) * peso_tfidf
+    return scores
+
+def ordenar_documentos(scores):
+    documentos_ordenados = sorted(scores.items(), key=lambda x: x[1], reverse=True)
+    return documentos_ordenados
+
+def obtener_df(termino):
+    df = 0
+    for valores in inverted.values():
+        documentos = valores.split(';')
+        for valor in documentos:
+            documento, _ = valor.split(',')
+            if documento == termino:
+                df += 1
+                break
+    return df
 
 
-# Busqueda
-def search_tweet(query, k): # Retorna los tweets encontrados
-    print("search_tweet(query, k):")
-    documentos = documentos_relevantes(query, k) # Recibe los documentos con su orden de relevancia
-    palabras = clean_all(query) # Recibe un arrray de palabras ya limpias
-    
-    
-    #print(documentos)
-    #print(palabras)
-    
+
+
+def search_valid(documentos , palabras):        
     """
     - leer los documentos con su orden de relevancia, leemos los documentos , 
     recorremos las palabras a buscar limpias, 
-    """
-    
-    lista = []
-    
+    """    
+    lista = []        
     for i in documentos:
         with open(direction_dataset_clean + '/' + i[0], 'r', encoding='utf-8' ) as documentos_encontrados:
             relevantes_cargados= json.load(documentos_encontrados)
@@ -128,11 +152,18 @@ def search_tweet(query, k): # Retorna los tweets encontrados
                     if temp.find(letter) != -1: # Retorna -1 si no lo encuentra
                         lista.append( {twet , relevantes_cargados[twet] })# Agregamos el tweet con su valor
                         #lista.append( {twet})
+    return lista
                     
-    
-    print("Lista encontrada")
-    #print(len(lista[:k]))    
-    return lista[:k]
+# Busqueda
+def search_tweet(query, k): # Retorna los tweets encontrados
+    print("search_tweet(query, k):")
+    documentos = documentos_relevantes(clean_all(query), k) # Recibe los documentos con su orden de relevancia
+    palabras = clean_all(query) # Recibe un arrray de palabras ya limpias
 
+    list_fined = search_valid(documentos , palabras)
 
+    #print(len(list_fined[:k]))    
+    return list_fined[:k]
+
+inverted = read_inverted()
 #print(search_tweet("hola perras" , 1))
