@@ -89,10 +89,10 @@ def get_frecuency(palabras): # Hace limpieza, filtra palabras clave, retrona fre
             scores[i] = scores[i]/(lenght1[i]*lenght2)
     orderedDic = sorted(scores.items(), key=lambda it: it[1], reverse=True)
     return orderedDic """
-def documentos_relevantes(query, k):
-    tf = obtener_frecuencia(query)
-    diccionario_pesos = calcular_pesos_tf_idf(tf)
-    scores = calcular_scores(diccionario_pesos)
+def buscar_documentos_relevantes(query, k):
+    frecuencia_tf = obtener_frecuencia(query)
+    pesos_tfidf = calcular_pesos_tf_idf(frecuencia_tf)
+    scores = calcular_scores(pesos_tfidf)
     documentos_ordenados = ordenar_documentos(scores)
     return documentos_ordenados[:k]
 
@@ -102,19 +102,19 @@ def obtener_frecuencia(query):
         frecuencia[palabra] = frecuencia.get(palabra, 0) + 1
     return frecuencia
 
-def calcular_pesos_tf_idf(tf):
-    diccionario_pesos = {}
+def calcular_pesos_tf_idf(frecuencia_tf):
+    pesos_tfidf = {}
     total_documentos = len(nanmes_docs)
-    for termino, frecuencia in tf.items():
+    for termino, frecuencia in frecuencia_tf.items():
         peso_tf = 1 + math.log(frecuencia)
         idf = math.log(total_documentos / obtener_df(termino))
         peso_tfidf = peso_tf * idf
-        diccionario_pesos[termino] = peso_tfidf
-    return diccionario_pesos
+        pesos_tfidf[termino] = peso_tfidf
+    return pesos_tfidf
 
-def calcular_scores(diccionario_pesos):
+def calcular_scores(pesos_tfidf):
     scores = {documento: 0 for documento in nanmes_docs}
-    for termino, peso_tfidf in diccionario_pesos.items():
+    for termino, peso_tfidf in pesos_tfidf.items():
         valores = inverted[termino].split(';')
         for valor in valores:
             documento, peso = valor.split(',')
@@ -131,11 +131,11 @@ def obtener_df(termino):
         documentos = valores.split(';')
         for valor in documentos:
             documento, _ = valor.split(',')
-            if documento == termino:
+            if termino == documento:
                 df += 1
                 break
     return df
- 
+
 
 
 def search_valid(documentos , palabras):        
