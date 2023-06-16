@@ -2,10 +2,11 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import time
 import json
-from src.search import search_tweet
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List , Dict
+from src.search import search_tweet
+from src.inverted_index import create_index_of_web
 
 app = FastAPI()
 app.add_middleware (
@@ -54,9 +55,11 @@ def read_root():
 @app.post("/add-json")
 async def jsn_add(data: List[Dict[str, str]]):
     print("data" , data)
-    for item in data:
+
+    create_index_of_web(data)
+    """ for item in data:
         for key, value in item.items():
             # Realiza las operaciones necesarias con los datos
-            print(key, value)
+            print(key, value) """
     
     return {"message": "Datos recibidos correctamente"}
