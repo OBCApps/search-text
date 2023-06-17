@@ -5,10 +5,10 @@ from src.clean_tweets import generate_clean_tweets
 from  src.clean import clean_all
 import math
 
-direction_dataset_clean = "./src/clean_data_dev"
+direction_dataset_clean = "./src/clean_data"
 #direction_dataset_clean = "clean_data_dev" # Direccion de donde esta guardado el dataset
 nanmes_docs = os.listdir(direction_dataset_clean) #Obtener la lista de los nombres de los archivos del dataset limpio
-
+ruta_archivo = "./src/index/index"
 
 
 def calculate_TF_IDF(tf):
@@ -39,10 +39,10 @@ def calculate_TF_IDF(tf):
 
 def write_index(data_write, num_index):
     #ruta_archivo = f"prueba/index-{int(num_index)}.txt"
-    ruta_archivo = f"./src/prueba/index{int(num_index)}.txt"
+    
     print(f"Write File: {ruta_archivo}")
     
-    with open(ruta_archivo, 'a', encoding='utf-8') as data:
+    with open(f"{ruta_archivo}{int(num_index)}.txt", 'a', encoding='utf-8') as data:
         for term, value in data_write.items():
             data.write(f"{term}:{value}\n")
 
@@ -70,8 +70,12 @@ def create_invert_index():
     print("... Construcción Local Finalizada .. ")
 
 
-def create_index_of_web(data):
-    generate_clean_tweets()
+def create_index_of_web(data, direction_write , direction_load):
+    ruta_archivo = direction_write
+    direction_dataset_clean = direction_load
+    nanmes_docs = os.listdir(direction_dataset_clean) #Obtener la lista de los nombres de los archivos del dataset limpio
+
+    generate_clean_tweets(data)
     print("... Construcción Indice Web.. ")
     all_jsns_frecuency = []
     lista = []

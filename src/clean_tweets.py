@@ -2,9 +2,9 @@
 import os
 import json
 
-dataset_input = "./src/dataset/data_elecciones_dev"
+dataset_input = "./src/dataset/data_elecciones"
 #dataset_input = "dataset\\data_elecciones_dev"
-diretion_new_dataset = "clean_data_dev"
+diretion_new_dataset = "clean_data"
 
 def load_file(filename):
     #print(f"clean-Load File : {filename}")
@@ -41,6 +41,16 @@ def generate_clean_tweets():
             write_file(clean_tweets, output_file)
     print("... Limpieza finalizada ...")
 
+
+def generate_clean_tweets_web(data):
+    print("... Limpiando tweets ...")
+    diretion_new_dataset = "clean_data_dev"
+    if not os.path.exists(diretion_new_dataset):
+        os.makedirs(diretion_new_dataset)
+    clean_tweets = id_text(data)
+    write_file(clean_tweets, "documento")
+   
+    print("... Limpieza finalizada ...")
 # def main():
 #     print("... Limpiando tweets ...")
 #     generate_clean_tweets()

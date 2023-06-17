@@ -18,7 +18,7 @@ ind = {}
 
 
 def read_inverted(): 
-    print("readInverted():")    
+    
     cont = 1
     
     while(True): 

@@ -70,7 +70,7 @@ def dev():
     return response
 
 
-""" @app.get("/add-js-local")
+@app.get("/add-js-local")
 async def add_local():
   
     json_data = {}
@@ -87,7 +87,7 @@ async def add_local():
     json_data["tiempo_ejecucion"] = fin - inicio
 
     return json_data
- """
+
 
 
 
