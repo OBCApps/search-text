@@ -85,10 +85,10 @@ def create_index_of_web(data):
     
     global direction_dataset_clean
     direction_dataset_clean = "./src/clean_data_dev"
-
+    print("directorio")
     global nanmes_docs
     nanmes_docs = os.listdir(direction_dataset_clean) 
-
+    print("directorio2")
     generate_clean_tweets_web(data)
     print("... Construcción Indice Web.. ")
     all_jsns_frecuency = []
