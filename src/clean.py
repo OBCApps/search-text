@@ -2,6 +2,7 @@ import nltk
 import re
 import string
 
+#stop_list_direction = 'dataset\\stoplist.txt'
 stop_list_direction = './src/dataset/stoplist.txt'
 
 
