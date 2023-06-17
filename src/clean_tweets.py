@@ -2,8 +2,8 @@
 import os
 import json
 
-#dataset_input = "./src/dataset/data_elecciones"
-dataset_input = "dataset\\data_elecciones_dev"
+dataset_input = "./src/dataset/data_elecciones"
+#dataset_input = "dataset\\data_elecciones_dev"
 diretion_new_dataset = "clean_data"
 
 def load_file(filename):
@@ -73,7 +73,7 @@ def generate_clean_tweets_web(json_files):
     print("... Limpieza finalizada ...")
 
 # Parte 1
-generate_clean_tweets()
+#generate_clean_tweets()
 
 
 # Parte 2
