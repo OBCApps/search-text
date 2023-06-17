@@ -21,6 +21,7 @@ def id_text(tweets):
 def write_file(clean_tweets, filename):
     #print(f"clean-Write File : {filename}")
     directory = os.path.dirname(filename)
+    print(f"write in : {directory}")
     if not os.path.exists(directory):
         os.makedirs(directory)
     with open(filename, "w", encoding='utf-8') as file:
@@ -44,13 +45,15 @@ def generate_clean_tweets():
 
 def generate_clean_tweets_web(data):
     print("... Limpiando tweets ...")
+    global diretion_new_dataset
     diretion_new_dataset = "clean_data_dev"
+
     if not os.path.exists(diretion_new_dataset):
         os.makedirs(diretion_new_dataset)
     clean_tweets = id_text(data)
-    write_file(clean_tweets, "documento")
-   
+    write_file(clean_tweets, "documento")   
     print("... Limpieza finalizada ...")
+    
 # def main():
 #     print("... Limpiando tweets ...")
 #     generate_clean_tweets()

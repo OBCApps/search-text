@@ -1,7 +1,7 @@
 import os
 from collections import Counter
 import json
-from src.clean_tweets import generate_clean_tweets
+from src.clean_tweets import generate_clean_tweets,generate_clean_tweets_web
 from  src.clean import clean_all
 import math
 
@@ -52,7 +52,16 @@ def create_invert_index():
     # Debe escribir en indexs-local
     generate_clean_tweets()
     print("... Construcción Indice Local.. ")
-    nanmes_docs = os.listdir(direction_dataset_clean) #Obtener la lista de los nombres de los archivos del dataset limpio
+    global ruta_archivo
+    ruta_archivo = "./src/index/index"
+    
+    global direction_dataset_clean
+    direction_dataset_clean = "./src/clean_data"
+
+    global nanmes_docs
+    nanmes_docs = os.listdir(direction_dataset_clean) 
+
+    
     all_jsns_frecuency = [] # Lista de cada jsn con su respectivas palabras y la cantidad que aparece
 
     for filename in nanmes_docs:
@@ -70,12 +79,17 @@ def create_invert_index():
     print("... Construcción Local Finalizada .. ")
 
 
-def create_index_of_web(data, direction_write , direction_load):
-    ruta_archivo = direction_write
-    direction_dataset_clean = direction_load
-    nanmes_docs = os.listdir(direction_dataset_clean) #Obtener la lista de los nombres de los archivos del dataset limpio
+def create_index_of_web(data):
+    global ruta_archivo
+    ruta_archivo = "./src/prueba/index"
+    
+    global direction_dataset_clean
+    direction_dataset_clean = "./src/clean_data_dev"
 
-    generate_clean_tweets(data)
+    global nanmes_docs
+    nanmes_docs = os.listdir(direction_dataset_clean) 
+
+    generate_clean_tweets_web(data)
     print("... Construcción Indice Web.. ")
     all_jsns_frecuency = []
     lista = []
