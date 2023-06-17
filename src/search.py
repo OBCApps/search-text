@@ -124,7 +124,10 @@ def search_tweet(query, k):
 
 
 
-def search_tweet_web(query, k): 
+def search_tweet_web(query, k , limpio , data): 
+    direction_dataset_clean = limpio
+
+    direction_indexs = data
     print("search_tweet_web(query, k):")
     documentos = documentos_relevantes(clean_all(query)) 
     palabras = clean_all(query) 
