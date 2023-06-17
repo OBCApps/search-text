@@ -4,7 +4,7 @@ import json
 
 dataset_input = "./src/dataset/data_elecciones"
 #dataset_input = "dataset\\data_elecciones_dev"
-diretion_new_dataset = "clean_data"
+diretion_new_dataset = ".src/clean_data"
 
 def load_file(filename):
     #print(f"clean-Load File : {filename}")
@@ -61,7 +61,7 @@ def generate_clean_tweets():
 def generate_clean_tweets_web(json_files):
     print(type(json_files))
     global diretion_new_dataset
-    diretion_new_dataset = "clean_data_dev"
+    diretion_new_dataset = "./src/clean_data_dev"
     output_file = os.path.join(diretion_new_dataset, "agregado.json")
     if not os.path.exists(diretion_new_dataset):
         os.makedirs(diretion_new_dataset)
