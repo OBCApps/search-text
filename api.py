@@ -4,7 +4,7 @@ import time
 import json
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
-from typing import List , Dict
+from typing import List , Dict, Any
 from src.search import search_tweet, search_tweet_web
 from src.inverted_index import create_index_of_web, create_invert_index
 
@@ -92,7 +92,7 @@ async def add_local():
 
 
 @app.post("/add-json-web")
-async def add_web(data: List[Dict[str, str]]):
+async def add_web(data: List[Dict[str, Any]]):
     print("data" , data)
     json_data = {}
     inicio = time.time()
