@@ -81,20 +81,21 @@ def create_invert_index():
 
 def create_index_of_web(data):
     generate_clean_tweets_web(data)
-    
+
     global ruta_archivo
     ruta_archivo = "./src/prueba/index"
     
     global direction_dataset_clean
     direction_dataset_clean = "./src/clean_data_dev"
-    print("directorio")
+    
     global nanmes_docs
     nanmes_docs = os.listdir(direction_dataset_clean) 
-    print("directorio2")
+    
     print("... Construcción Indice Web.. ")
     all_jsns_frecuency = []
     lista = []
     for tweet in data: 
+        print("tweet ", tweet)
         temp = clean_all(data[tweet]) # cargamos los datos en un diccionario, tambien el el load se le aplica una limpieza de mas cosas
         lista.append(Counter(temp))
     all_jsns_frecuency.append(sum(lista, Counter())) 
