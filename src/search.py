@@ -49,6 +49,7 @@ def get_frecuency(palabras):
 
 
 def documentos_relevantes(query): 
+    print("DOCUMENTO RELEVANTES: " ,direction_dataset_clean )
     nanmes_docs = os.listdir(direction_dataset_clean) 
     tf = get_frecuency(query)
     dic = {} 
