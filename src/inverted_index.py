@@ -2,7 +2,7 @@ import os
 from collections import Counter
 import json
 from src.clean_tweets import generate_clean_tweets
-import src.clean
+from  src.clean import clean_all
 import math
 
 direction_dataset_clean = "./src/clean_data_dev"
@@ -58,7 +58,7 @@ def create_invert_index():
             print(f"Load File: {direction_dataset_clean + '/' + filename}")
             all_tweets_dictionary = json.load(all_tweets)
             for tweet in all_tweets_dictionary: 
-                temp = clean.clean_all(all_tweets_dictionary[tweet]) 
+                temp = clean_all(all_tweets_dictionary[tweet]) 
                 lista.append(Counter(temp))
             all_jsns_frecuency.append( sum(lista, Counter()) )  # Jntamos las palabras que son repetidas
     
@@ -71,7 +71,7 @@ def create_index_of_web(data):
     all_jsns_frecuency = []
     lista = []
     for tweet in data: 
-        temp = clean.clean_all(data[tweet]) # cargamos los datos en un diccionario, tambien el el load se le aplica una limpieza de mas cosas
+        temp = clean_all(data[tweet]) # cargamos los datos en un diccionario, tambien el el load se le aplica una limpieza de mas cosas
         lista.append(Counter(temp))
     all_jsns_frecuency.append(sum(lista, Counter())) 
     calculate_TF_IDF(all_jsns_frecuency)
