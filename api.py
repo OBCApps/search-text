@@ -50,7 +50,7 @@ async def search_web(buscar : Search):
         print("buscar" , buscar)
         #response = JSONResponse(content = search_tweet(buscar.query , buscar.cantidad) , media_type="application/json")
         inicio = time.time()
-        response = search_tweet_web(buscar.query , buscar.cantidad , "./src/clean_data_dev" , "./src/indexs/prueba")
+        response = search_tweet_web(buscar.query , buscar.cantidad )
         fin = time.time()
 
         json_data = {            
