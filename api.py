@@ -44,13 +44,13 @@ async def search_local(buscar : Search):
         raise HTTPException(status_code=404, detail="La palabra no fue encontrada")
 
 
-""" @app.post("/search-web")
+@app.post("/search-web")
 async def search_web(buscar : Search):
     try:
         print("buscar" , buscar)
         #response = JSONResponse(content = search_tweet(buscar.query , buscar.cantidad) , media_type="application/json")
         inicio = time.time()
-        response = search_tweet(buscar.query , buscar.cantidad)
+        response = search_tweet(buscar.query , buscar.cantidad , "./src/clean_data_dev" , "./src/indexs/prueba")
         fin = time.time()
 
         json_data = {            
@@ -62,7 +62,7 @@ async def search_web(buscar : Search):
     except KeyError:
         raise HTTPException(status_code=404, detail="La palabra no fue encontrada")
 
- """
+
 @app.get("/prueba")
 def dev():
     #response = JSONResponse(content = search_tweet("prueba " , 3) , media_type="application/json")

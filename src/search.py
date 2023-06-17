@@ -9,7 +9,7 @@ import nltk
 nltk.download('punkt')
 
 direction_dataset_clean = "./src/clean_data" 
-nanmes_docs = os.listdir(direction_dataset_clean) 
+
 
 direction_indexs = "./src/indexs/index"
 ind = {}  
@@ -49,7 +49,7 @@ def get_frecuency(palabras):
 
 
 def documentos_relevantes(query): 
-    
+    nanmes_docs = os.listdir(direction_dataset_clean) 
     tf = get_frecuency(query)
     dic = {} 
     
@@ -112,7 +112,7 @@ def search_valid(documentos , palabras):
                     
 
 def search_tweet(query, k): 
-    print("search_tweet(query, k):")
+    print("search_tweet_local(query, k):")
     documentos = documentos_relevantes(clean_all(query)) 
     palabras = clean_all(query) 
 
@@ -123,3 +123,13 @@ def search_tweet(query, k):
 
 
 
+
+def search_tweet_web(query, k): 
+    print("search_tweet_web(query, k):")
+    documentos = documentos_relevantes(clean_all(query)) 
+    palabras = clean_all(query) 
+
+    list_fined = search_valid(documentos , palabras)
+
+    
+    return list_fined[:k]
