@@ -92,7 +92,7 @@ def create_index_of_web(data):
     nanmes_docs = os.listdir(direction_dataset_clean) 
     
     print("... Construcción Indice Web.. ")
-    filename = "agregado"
+    filename = "agregado.json"
     all_jsns_frecuency = []
     lista = [] # Comentarios segun las veces que aparecen         
         #with open(direction_dataset_clean + '\\' + filename, 'r', encoding='utf-8') as all_tweets:
