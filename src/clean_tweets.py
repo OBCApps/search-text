@@ -59,7 +59,7 @@ def generate_clean_tweets():
 
 
 def generate_clean_tweets_web(json_files):
-    print("... Limpiando tweets ...")
+    print(type(json_files))
     global diretion_new_dataset
     diretion_new_dataset = "clean_data_dev"
     output_file = os.path.join(diretion_new_dataset, "agregado.json")
@@ -77,11 +77,11 @@ def generate_clean_tweets_web(json_files):
 
 
 # Parte 2
-""" direccion = 'dataset\\data_elecciones\\tweets_2018-08-07.json'
-with open(direccion, 'r' , encoding='utf-8') as f:
-    contenido_json = f.read()
-data = json.loads(contenido_json)
-#print(data)
-generate_clean_tweets_web(data) """
+# direccion = 'dataset\\data_elecciones\\tweets_2018-08-07.json'
+# with open(direccion, 'r' , encoding='utf-8') as f:
+#     contenido_json = f.read()
+# data = json.loads(contenido_json)
+# #print(data)
+# generate_clean_tweets_web(data)
 
 
