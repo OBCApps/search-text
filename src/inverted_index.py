@@ -80,6 +80,8 @@ def create_invert_index():
 
 
 def create_index_of_web(data):
+    generate_clean_tweets_web(data)
+    
     global ruta_archivo
     ruta_archivo = "./src/prueba/index"
     
@@ -89,7 +91,6 @@ def create_index_of_web(data):
     global nanmes_docs
     nanmes_docs = os.listdir(direction_dataset_clean) 
     print("directorio2")
-    generate_clean_tweets_web(data)
     print("... Construcción Indice Web.. ")
     all_jsns_frecuency = []
     lista = []
