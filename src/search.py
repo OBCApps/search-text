@@ -114,6 +114,11 @@ def search_valid(documentos , palabras):
 
 def search_tweet(query, k): 
     print("search_tweet_local(query, k):")
+    global direction_dataset_clean
+    direction_dataset_clean = "./src/clean_data" 
+
+    global direction_indexs
+    direction_indexs =  "./src/indexs/index"
     documentos = documentos_relevantes(clean_all(query)) 
     palabras = clean_all(query) 
 
