@@ -5,7 +5,8 @@ from src.clean_tweets import generate_clean_tweets
 import src.clean
 import math
 
-direction_dataset_clean = "clean_data_dev" # Direccion de donde esta guardado el dataset
+direction_dataset_clean = "./src/clean_data_dev"
+#direction_dataset_clean = "clean_data_dev" # Direccion de donde esta guardado el dataset
 nanmes_docs = os.listdir(direction_dataset_clean) #Obtener la lista de los nombres de los archivos del dataset limpio
 
 
