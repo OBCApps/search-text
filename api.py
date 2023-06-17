@@ -5,7 +5,7 @@ import json
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List , Dict
-from src.search import search_tweet
+from src.search import search_tweet, search_tweet_web
 from src.inverted_index import create_index_of_web, create_invert_index
 
 
@@ -50,7 +50,7 @@ async def search_web(buscar : Search):
         print("buscar" , buscar)
         #response = JSONResponse(content = search_tweet(buscar.query , buscar.cantidad) , media_type="application/json")
         inicio = time.time()
-        response = search_tweet(buscar.query , buscar.cantidad , "./src/clean_data_dev" , "./src/indexs/prueba")
+        response = search_tweet_web(buscar.query , buscar.cantidad , "./src/clean_data_dev" , "./src/indexs/prueba")
         fin = time.time()
 
         json_data = {            
