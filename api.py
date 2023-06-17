@@ -97,11 +97,11 @@ async def add_web(data: List[Dict[str, str]]):
     json_data = {}
     inicio = time.time()
 
-    try:
+    """ try:
         create_index_of_web(data)
         json_data["respuesta"] = "Datos cargados correctamente"
     except Exception as e:
-        json_data["respuesta"] = f"Error al cargar los datos: {str(e)}"
+        json_data["respuesta"] = f"Error al cargar los datos: {str(e)}" """
     
     fin = time.time()
 
