@@ -39,7 +39,7 @@ def calculate_TF_IDF(tf):
 
 def write_index(data_write, num_index):
     #ruta_archivo = f"prueba/index-{int(num_index)}.txt"
-    ruta_archivo = f"./src/prueba/index-{int(num_index)}.txt"
+    ruta_archivo = f"./src/prueba/index{int(num_index)}.txt"
     print(f"Write File: {ruta_archivo}")
     
     with open(ruta_archivo, 'a', encoding='utf-8') as data:
@@ -49,10 +49,12 @@ def write_index(data_write, num_index):
 
 
 def create_invert_index():
+    # Debe escribir en indexs-local
     generate_clean_tweets()
     print("... Construcción Indice Local.. ")
     nanmes_docs = os.listdir(direction_dataset_clean) #Obtener la lista de los nombres de los archivos del dataset limpio
     all_jsns_frecuency = [] # Lista de cada jsn con su respectivas palabras y la cantidad que aparece
+
     for filename in nanmes_docs:
         lista = [] # Comentarios segun las veces que aparecen         
         #with open(direction_dataset_clean + '\\' + filename, 'r', encoding='utf-8') as all_tweets:
