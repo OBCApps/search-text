@@ -25,13 +25,32 @@ class Search(BaseModel):
 
 
 
-@app.post("/search")
-async def search(buscar : Search):
+@app.post("/search-local")
+async def search_local(buscar : Search):
     try:
         print("buscar" , buscar)
         #response = JSONResponse(content = search_tweet(buscar.query , buscar.cantidad) , media_type="application/json")
         inicio = time.time()
-        response = search_tweet(buscar.query , buscar.cantidad)
+        response = search_tweet(buscar.query , buscar.cantidad , "./src/indexs/index")
+        fin = time.time()
+
+        json_data = {            
+            "tiempo_ejecucion": fin - inicio,
+            "respuesta":  response,
+        }
+                
+        return json_data
+    except KeyError:
+        raise HTTPException(status_code=404, detail="La palabra no fue encontrada")
+
+
+@app.post("/search-web")
+async def search_web(buscar : Search):
+    try:
+        print("buscar" , buscar)
+        #response = JSONResponse(content = search_tweet(buscar.query , buscar.cantidad) , media_type="application/json")
+        inicio = time.time()
+        response = search_tweet(buscar.query , buscar.cantidad , "./src/prueba/index-")
         fin = time.time()
 
         json_data = {            
@@ -47,7 +66,7 @@ async def search(buscar : Search):
 @app.get("/prueba")
 def dev():
     #response = JSONResponse(content = search_tweet("prueba " , 3) , media_type="application/json")
-    response = search_tweet("prueba " , 3)
+    response = search_tweet("prueba " , 3, "./src/indexs/index")
     return response
 
 

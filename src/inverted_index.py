@@ -50,6 +50,7 @@ def write_index(data_write, num_index):
 
 def create_invert_index():
     generate_clean_tweets()
+    print("... Construcción Indice Local.. ")
     nanmes_docs = os.listdir(direction_dataset_clean) #Obtener la lista de los nombres de los archivos del dataset limpio
     all_jsns_frecuency = [] # Lista de cada jsn con su respectivas palabras y la cantidad que aparece
     for filename in nanmes_docs:
@@ -64,11 +65,12 @@ def create_invert_index():
             all_jsns_frecuency.append( sum(lista, Counter()) )  # Jntamos las palabras que son repetidas
     
     calculate_TF_IDF(all_jsns_frecuency)
+    print("... Construcción Local Finalizada .. ")
 
 
 def create_index_of_web(data):
     generate_clean_tweets()
-    
+    print("... Construcción Indice Web.. ")
     all_jsns_frecuency = []
     lista = []
     for tweet in data: 
@@ -76,5 +78,6 @@ def create_index_of_web(data):
         lista.append(Counter(temp))
     all_jsns_frecuency.append(sum(lista, Counter())) 
     calculate_TF_IDF(all_jsns_frecuency)
+    print("... Construcción Web Finalizada .. ")
 
 #create_invert_index()

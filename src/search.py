@@ -11,7 +11,7 @@ nltk.download('punkt')
 direction_dataset_clean = "./src/clean_data" 
 nanmes_docs = os.listdir(direction_dataset_clean) 
 
-direction_indexs = "./src/indexs/index"
+direction_indexs = "./src/indexs/index-"
 ind = {}  
 
 
@@ -111,8 +111,10 @@ def search_valid(documentos , palabras):
     return lista
                     
 
-def search_tweet(query, k): 
+def search_tweet(query, k, documento): 
     print("search_tweet(query, k):")
+    direction_indexs = documento
+    print(f"Search in: {direction_indexs}")
     documentos = documentos_relevantes(clean_all(query)) 
     palabras = clean_all(query) 
 
