@@ -6,7 +6,8 @@ from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List , Dict
 from src.search import search_tweet
-from src.inverted_index import create_index_of_web
+from src.inverted_index import create_index_of_web, create_invert_index
+
 
 app = FastAPI()
 app.add_middleware (
@@ -25,7 +26,7 @@ class Search(BaseModel):
 
 
 @app.post("/search")
-async def read_root(buscar : Search):
+async def search(buscar : Search):
     try:
         print("buscar" , buscar)
         #response = JSONResponse(content = search_tweet(buscar.query , buscar.cantidad) , media_type="application/json")
@@ -44,22 +45,47 @@ async def read_root(buscar : Search):
 
 
 @app.get("/prueba")
-def read_root():
+def dev():
     #response = JSONResponse(content = search_tweet("prueba " , 3) , media_type="application/json")
     response = search_tweet("prueba " , 3)
     return response
 
 
+@app.get("/add-js-local")
+async def add_local():
+  
+    json_data = {}
+    inicio = time.time()
 
-
-@app.post("/add-json")
-async def jsn_add(data: List[Dict[str, str]]):
-    print("data" , data)
-
-    create_index_of_web(data)
-    """ for item in data:
-        for key, value in item.items():
-            # Realiza las operaciones necesarias con los datos
-            print(key, value) """
+    try:
+        create_invert_index()
+        json_data["respuesta"] = "Datos cargados correctamente"
+    except Exception as e:
+        json_data["respuesta"] = f"Error al cargar los datos: {str(e)}"
     
-    return {"message": "Datos recibidos correctamente"}
+    fin = time.time()
+
+    json_data["tiempo_ejecucion"] = fin - inicio
+
+    return json_data
+
+
+
+
+@app.post("/add-json-web")
+async def add_web(data: List[Dict[str, str]]):
+    print("data" , data)
+    json_data = {}
+    inicio = time.time()
+
+    try:
+        create_index_of_web(data)
+        json_data["respuesta"] = "Datos cargados correctamente"
+    except Exception as e:
+        json_data["respuesta"] = f"Error al cargar los datos: {str(e)}"
+    
+    fin = time.time()
+
+    json_data["tiempo_ejecucion"] = fin - inicio
+
+    return json_data
