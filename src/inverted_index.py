@@ -76,4 +76,4 @@ def create_index_of_web(data):
     all_jsns_frecuency.append(sum(lista, Counter())) 
     calculate_TF_IDF(all_jsns_frecuency)
 
-create_invert_index()
+#create_invert_index()
