@@ -19,7 +19,7 @@ def id_text(tweets):
     return clean_tweets
 
 def write_file(clean_tweets, filename):
-    #print(f"clean-Write File : {filename}")
+    print(f"clean-Write File : {filename}")
     directory = os.path.dirname(filename)
     print(f"write in : {directory}")
     if not os.path.exists(directory):
@@ -53,7 +53,7 @@ def generate_clean_tweets_web(data):
     clean_tweets = id_text(data)
     write_file(clean_tweets, "documento")   
     print("... Limpieza finalizada ...")
-    
+
 # def main():
 #     print("... Limpiando tweets ...")
 #     generate_clean_tweets()
