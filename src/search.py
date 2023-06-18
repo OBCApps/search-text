@@ -23,7 +23,7 @@ def read_inverted():
     
     while(True): 
         pat = direction_indexs + str(cont)+".txt"
-        print("leyendo de:" , pat)
+        #print("leyendo de:" , pat)
         if os.path.exists(pat): 
             with open(pat, 'r', encoding="ISO-8859-1") as indice: 
                 
@@ -53,9 +53,9 @@ def get_frecuency(palabras):
 def documentos_relevantes(query): 
     #print("DOCUMENTO RELEVANTES: " ,direction_dataset_clean )
     nanmes_docs = os.listdir(direction_dataset_clean) 
-    print("nanmes_docs" , nanmes_docs)
+    #print("nanmes_docs" , nanmes_docs)
     tf = get_frecuency(query)
-    print("fercuencia query," , tf)
+    #print("fercuencia query," , tf)
     dic = {} 
     
     inverted = read_inverted()
@@ -74,9 +74,9 @@ def documentos_relevantes(query):
         """ print("tf[i]" , i)
         print("names_docs" , nanmes_docs)
         print("inverted[i]" , inverted) """
-        print(" tf[i])" , tf[i]) 
+        """ print(" tf[i])" , tf[i]) 
         print("len(nanmes_docs)", len(nanmes_docs))
-        print("inverted[i]" , inverted)
+        print("inverted[i]" , inverted) """
         #print("len(str(inverted[i]).split(';'))", len(str(inverted[i]).split(';')))
         wtfidf = math.log(1 + tf[i]) * math.log(len(nanmes_docs) / len(str(inverted[i]).split(';')))   
         print("----")
