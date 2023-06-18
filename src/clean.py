@@ -4,8 +4,8 @@ import string
 import os
 from collections import Counter
 from nltk.stem.snowball import SnowballStemmer
-stop_list_direction = 'dataset\\stoplist.txt'
-#stop_list_direction = './src/dataset/stoplist.txt'
+#stop_list_direction = 'dataset\\stoplist.txt'
+stop_list_direction = './src/dataset/stoplist.txt'
 
 
 invalid_characters = [ "¡", "«", "»", ".", ",", ";", "(", ")", ":", "@", "RT", "#", "|", "¿", "?", "!", "https", "$", "%", "&", "'", "''", "..", "...", '\'', '\"' ] 
