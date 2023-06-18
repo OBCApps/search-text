@@ -96,11 +96,6 @@ def get_frecuency(palabras):
     orderedDic = sorted(scores.items(), key=lambda it: it[1], reverse=True)
     print(orderedDic)
     return orderedDic """
-def obtener_nombres_documentos():
-    return os.listdir(direction_dataset_clean)
-
-def calcular_tf(query):
-    return get_frecuency(query)
 
 def calcular_wtfidf(tf, inverted, document_count):
     wtfidf_scores = {}
@@ -135,10 +130,10 @@ def normalizar_puntajes(scores, lenght1, lenght2):
     return scores
 
 def documentos_relevantes(query):
-    nombres_docs = obtener_nombres_documentos()
+    nombres_docs = os.listdir(direction_dataset_clean)
     print("nombres_docs", nombres_docs)
 
-    tf = calcular_tf(query)
+    tf = get_frecuency(query)
     inverted = read_inverted()
 
     scores = {}
