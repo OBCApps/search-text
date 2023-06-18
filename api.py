@@ -93,7 +93,7 @@ async def add_local():
 
 
 @app.post("/add-json-web")
-async def add_web(data: List[Dict[str, Any]]):
+async def add_web(data: List[List[Dict[str, Any]]]):
     #print("data" , data)
     json_data = {}
     inicio = time.time()
