@@ -20,7 +20,7 @@ ind = {}
 def read_inverted(): 
     
     cont = 1
-    
+    print("direccion del indice: " ,direction_indexs )
     while(True): 
         pat = direction_indexs + str(cont)+".txt"
         #print("leyendo de:" , pat)
@@ -53,7 +53,7 @@ def get_frecuency(palabras):
 def documentos_relevantes(query): 
     #print("DOCUMENTO RELEVANTES: " ,direction_dataset_clean )
     nanmes_docs = os.listdir(direction_dataset_clean) 
-    #print("nanmes_docs" , nanmes_docs)
+    print("nanmes_docs" , nanmes_docs)
     tf = get_frecuency(query)
     #print("fercuencia query," , tf)
     dic = {} 
@@ -131,7 +131,7 @@ def search_tweet(query, k):
 
     global direction_indexs
     direction_indexs =  "./src/indexs-local/index"
-    documentos = documentos_relevantes(clean_all2(query)) 
+    documentos = documentos_relevantes(clean_all(query)) 
     palabras = clean_all(query) 
 
     list_fined = search_valid(documentos , palabras)
@@ -149,7 +149,7 @@ def search_tweet_web(query, k):
     global direction_indexs
     direction_indexs = "./src/indexs-web/index"
     print("search_tweet_web(query, k):")
-    documentos = documentos_relevantes(clean_all2(query)) 
+    documentos = documentos_relevantes(clean_all(query)) 
     print("DOCUMENTOS" , documentos)
     palabras = clean_all(query) 
     print("PALABRAS" , documentos)
