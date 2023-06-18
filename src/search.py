@@ -50,7 +50,7 @@ def get_frecuency(palabras):
     return Counter(roots) 
 
 
-""" def documentos_relevantes(query): 
+def documentos_relevantes(query): 
     #print("DOCUMENTO RELEVANTES: " ,direction_dataset_clean )
     nanmes_docs = os.listdir(direction_dataset_clean) 
     print("nanmes_docs" , nanmes_docs)
@@ -95,45 +95,8 @@ def get_frecuency(palabras):
     orderedDic = sorted(scores.items(), key=lambda it: it[1], reverse=True)
     print(orderedDic)
     return orderedDic
- """
-def documentos_relevantes(query):
-    documentos = os.listdir(direction_dataset_clean)
-    tf = get_frecuency(query)
-    inverted = read_inverted()
-    
-    scores = {}
-    document_lengths = {}
-    
-    for documento in documentos:
-        scores[documento] = 0
-        document_lengths[documento] = 0
-    
-    for term, term_frequency in tf.items():
-        if term not in inverted:
-            continue
-        
-        idf = math.log(len(documentos) / len(inverted[term].split(';')))
-        wtfidf = math.log(1 + term_frequency) * idf
-        
-        for doc_term in inverted[term].split(';'):
-            document_id, doc_frequency = doc_term.split(',')
-            document_id = document_id
-            doc_frequency = float(doc_frequency)
-            
-            document_lengths[document_id] += doc_frequency ** 2
-            scores[document_id] += doc_frequency * wtfidf
-    
-    query_length_sqrt = math.sqrt(sum(tfidf ** 2 for tfidf in scores.values()))
-    
-    ordered_documents = []
-    for document_id, score in scores.items():
-        if document_lengths[document_id] != 0:
-            score /= (math.sqrt(document_lengths[document_id]) * query_length_sqrt)
-        ordered_documents.append({'document_id': document_id, 'score': score})
-    
-    ordered_documents.sort(key=lambda item: item['score'], reverse=True)
-    
-    return ordered_documents
+
+
 
 
 def search_valid(documentos , palabras):        
