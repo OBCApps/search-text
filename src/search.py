@@ -50,52 +50,6 @@ def get_frecuency(palabras):
     return Counter(roots) 
 
 
-""" def documentos_relevantes(query): 
-    #print("DOCUMENTO RELEVANTES: " ,direction_dataset_clean )
-    nanmes_docs = os.listdir(direction_dataset_clean) 
-    print("nanmes_docs" , nanmes_docs)
-    tf = get_frecuency(query)
-    #print("fercuencia query," , tf)
-    dic = {} 
-    
-    inverted = read_inverted()
-    
-    scores = {}
-    lenght1 = {}
-    
-    for i in nanmes_docs: 
-        scores[i] = 0
-        lenght1[i] = 0
-    
-    lenght2 = 0 
-    print("aqui1")
-    for i in tf:
-        wtfidf = math.log(1 + tf[i]) * math.log(len(nanmes_docs) / len(str(inverted[i]).split(';')))   
-        print("----")
-        
-        dic[i] = wtfidf
-
-        lenght2 = lenght2 + wtfidf**2 
-
-        values = inverted[i].split(';') 
-        for j in values:  
-            j = j.split(',') 
-            lenght1[j[0]] = lenght1[j[0]] + float(j[1])**2
-            scores[j[0]] = scores[j[0]] + float(j[1])*wtfidf
-    
-
-    lenght2 = lenght2**0.5
-    #Normalizacion de los puntajes de relevancia
-    for i in lenght1:
-        if lenght1[i] != 0:
-            lenght1[i] = lenght1[i]**0.5
-    for i in scores:
-        if lenght1[i] != 0:
-            scores[i] = scores[i]/(lenght1[i]*lenght2)
-    print("aqui2")
-    orderedDic = sorted(scores.items(), key=lambda it: it[1], reverse=True)
-    print(orderedDic)
-    return orderedDic """
 
 def calcular_wtfidf(tf, inverted, document_count):
     wtfidf_scores = {}
