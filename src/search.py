@@ -23,6 +23,7 @@ def read_inverted():
     
     while(True): 
         pat = direction_indexs + str(cont)+".txt"
+        print("leyendo de:" , pat)
         if os.path.exists(pat): 
             with open(pat, 'r', encoding="ISO-8859-1") as indice: 
                 
@@ -51,6 +52,7 @@ def get_frecuency(palabras):
 def documentos_relevantes(query): 
     #print("DOCUMENTO RELEVANTES: " ,direction_dataset_clean )
     nanmes_docs = os.listdir(direction_dataset_clean) 
+    print("nanmes_docs" , nanmes_docs)
     tf = get_frecuency(query)
     dic = {} 
     
@@ -83,7 +85,7 @@ def documentos_relevantes(query):
             lenght1[j[0]] = lenght1[j[0]] + float(j[1])**2
             scores[j[0]] = scores[j[0]] + float(j[1])*wtfidf
     
-    
+
     lenght2 = lenght2**0.5
     for i in lenght1:
         if lenght1[i] != 0:
