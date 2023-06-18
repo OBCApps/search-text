@@ -1,10 +1,10 @@
 import os
 from collections import Counter
 import json
-from clean_tweets import generate_clean_tweets,generate_clean_tweets_web, load_file
-#from src.clean_tweets import generate_clean_tweets,generate_clean_tweets_web
-#from  src.clean import clean_all
-from  clean import clean_all, clean_all2
+#from clean_tweets import generate_clean_tweets,generate_clean_tweets_web, load_file
+from src.clean_tweets import generate_clean_tweets,generate_clean_tweets_web
+from  src.clean import clean_all
+#from  clean import clean_all, clean_all2
 import math
 
 direction_dataset_clean = "./src/clean_data"
