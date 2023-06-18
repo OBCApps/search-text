@@ -137,7 +137,7 @@ def search_tweet_web(query, k):
     direction_dataset_clean = "./src/clean_data_dev"
 
     global direction_indexs
-    direction_indexs = "./src/indexs/prueba"
+    direction_indexs = "./src/prueba/index"
     print("search_tweet_web(query, k):")
     documentos = documentos_relevantes(clean_all(query)) 
     print("DOCUMENTOS" , documentos)
