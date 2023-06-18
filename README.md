@@ -152,7 +152,12 @@ def create_invert_index():
 
 ### Tabla de Comparación de tiempos  
 
+![](./images/tiempos.PNG)  
 
+#### Conclusión  
+Los resultados obtenidos al evaluar el rendimiento de la implementación del índice invertido indican que el tiempo de procesamiento se mantiene relativamente constante a medida que aumenta la cantidad de datos. Aunque se observa un ligero incremento en el tiempo a medida que se manejan conjuntos de datos más grandes, este aumento es mínimo.
+
+Esto sugiere que la implementación del índice invertido es eficiente y escalable, ya que logra mantener tiempos de procesamiento bajos incluso con volúmenes significativos de datos. Por lo tanto, se puede concluir que el enfoque utilizado en la implementación del índice invertido es adecuado para las necesidades actuales y futuras de la aplicación.
 
 
 
