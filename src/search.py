@@ -1,6 +1,6 @@
 import os
 
-from src.clean import clean_all
+from src.clean import clean_all, clean_all2
 import json
 from collections import Counter
 import math
@@ -131,7 +131,7 @@ def search_tweet(query, k):
 
     global direction_indexs
     direction_indexs =  "./src/indexs-local/index"
-    documentos = documentos_relevantes(clean_all(query)) 
+    documentos = documentos_relevantes(clean_all2(query)) 
     palabras = clean_all(query) 
 
     list_fined = search_valid(documentos , palabras)
@@ -149,7 +149,7 @@ def search_tweet_web(query, k):
     global direction_indexs
     direction_indexs = "./src/indexs-web/index"
     print("search_tweet_web(query, k):")
-    documentos = documentos_relevantes(clean_all(query)) 
+    documentos = documentos_relevantes(clean_all2(query)) 
     print("DOCUMENTOS" , documentos)
     palabras = clean_all(query) 
     print("PALABRAS" , documentos)
