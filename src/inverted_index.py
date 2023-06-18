@@ -41,7 +41,8 @@ def write_index(data_write, num_index):
     #ruta_archivo = f"prueba/index-{int(num_index)}.txt"
     
     print(f"Write File: {ruta_archivo}")
-    
+    if not os.path.exists(ruta_archivo):
+        os.makedirs(ruta_archivo)
     with open(f"{ruta_archivo}{int(num_index)}.txt", 'a', encoding='utf-8') as data:
         for term, value in data_write.items():
             data.write(f"{term}:{value}\n")
