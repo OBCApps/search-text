@@ -82,7 +82,7 @@ ng serve --open
 ![](./images/vista_general.PNG)  
 
 - Vista de resultado  
-![](./images/vista_resultado.PNG)
+![](./images/vista_resultadoPNG.PNG)
 
 - - Vista de Agregar  
 ![](./images/vista_cargar_datos.PNG)
