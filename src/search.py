@@ -94,37 +94,45 @@ def get_frecuency(palabras):
     print("aqui2")
     orderedDic = sorted(scores.items(), key=lambda it: it[1], reverse=True)
     print(orderedDic)
-    return orderedDic """
-
+    return orderedDic
+ """
 def documentos_relevantes(query):
-    document_names = os.listdir(direction_dataset_clean)
+    documentos = os.listdir(direction_dataset_clean)
     tf = get_frecuency(query)
     inverted = read_inverted()
-
-    document_scores = [0] * len(document_names)
-    document_lengths = [0] * len(document_names)
-    length2 = 0
-
+    
+    scores = {}
+    document_lengths = {}
+    
+    for documento in documentos:
+        scores[documento] = 0
+        document_lengths[documento] = 0
+    
     for term, term_frequency in tf.items():
-        wtfidf = math.log(1 + term_frequency) * math.log(len(document_names) / len(str(inverted[term]).split(';')))
-        length2 += wtfidf ** 2
-
-        postings = inverted[term].split(';')
-        for posting in postings:
-            document_id, frequency = posting.split(',')
+        if term not in inverted:
+            continue
+        
+        idf = math.log(len(documentos) / len(inverted[term].split(';')))
+        wtfidf = math.log(1 + term_frequency) * idf
+        
+        for doc_term in inverted[term].split(';'):
+            document_id, doc_frequency = doc_term.split(',')
             document_id = int(document_id)
-            frequency = float(frequency)
-
-            document_lengths[document_id] += frequency ** 2
-            document_scores[document_id] += frequency * wtfidf
-
-    length2 = math.sqrt(length2)
-    for i, length in enumerate(document_lengths):
-        if length != 0:
-            document_lengths[i] = math.sqrt(length)
-            document_scores[i] /= (document_lengths[i] * length2)
-
-    ordered_documents = sorted(zip(document_names, document_scores), key=lambda x: x[1], reverse=True)
+            doc_frequency = float(doc_frequency)
+            
+            document_lengths[document_id] += doc_frequency ** 2
+            scores[document_id] += doc_frequency * wtfidf
+    
+    query_length_sqrt = math.sqrt(sum(tfidf ** 2 for tfidf in scores.values()))
+    
+    ordered_documents = []
+    for document_id, score in scores.items():
+        if document_lengths[document_id] != 0:
+            score /= (math.sqrt(document_lengths[document_id]) * query_length_sqrt)
+        ordered_documents.append({'document_id': document_id, 'score': score})
+    
+    ordered_documents.sort(key=lambda item: item['score'], reverse=True)
+    
     return ordered_documents
 
 
