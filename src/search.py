@@ -50,7 +50,7 @@ def get_frecuency(palabras):
     return Counter(roots) 
 
 
-def documentos_relevantes(query): 
+""" def documentos_relevantes(query): 
     #print("DOCUMENTO RELEVANTES: " ,direction_dataset_clean )
     nanmes_docs = os.listdir(direction_dataset_clean) 
     print("nanmes_docs" , nanmes_docs)
@@ -85,12 +85,73 @@ def documentos_relevantes(query):
     
 
     lenght2 = lenght2**0.5
+    #Normalizacion de los puntajes de relevancia
     for i in lenght1:
         if lenght1[i] != 0:
             lenght1[i] = lenght1[i]**0.5
     for i in scores:
         if lenght1[i] != 0:
             scores[i] = scores[i]/(lenght1[i]*lenght2)
+    print("aqui2")
+    orderedDic = sorted(scores.items(), key=lambda it: it[1], reverse=True)
+    print(orderedDic)
+    return orderedDic """
+def obtener_nombres_documentos():
+    return os.listdir(direction_dataset_clean)
+
+def calcular_tf(query):
+    return get_frecuency(query)
+
+def calcular_wtfidf(tf, inverted, document_count):
+    wtfidf_scores = {}
+    lenght2 = 0
+
+    for term, frequency in tf.items():
+        wtfidf = math.log(1 + frequency) * math.log(document_count / len(str(inverted[term]).split(';')))
+        wtfidf_scores[term] = wtfidf
+        lenght2 += wtfidf ** 2
+
+    return wtfidf_scores, lenght2
+
+def actualizar_puntajes(scores, lenght1, inverted, wtfidf_scores):
+    for term, wtfidf in wtfidf_scores.items():
+        values = inverted[term].split(';')
+        for value in values:
+            document_id, frequency = value.split(',')
+            lenght1[document_id] += float(frequency) ** 2
+            scores[document_id] += float(frequency) * wtfidf
+
+    return scores, lenght1
+
+def normalizar_puntajes(scores, lenght1, lenght2):
+    for document_id in lenght1:
+        if lenght1[document_id] != 0:
+            lenght1[document_id] = lenght1[document_id] ** 0.5
+
+    for document_id in scores:
+        if lenght1[document_id] != 0:
+            scores[document_id] = scores[document_id] / (lenght1[document_id] * lenght2)
+
+    return scores
+
+def documentos_relevantes(query):
+    nombres_docs = obtener_nombres_documentos()
+    print("nombres_docs", nombres_docs)
+
+    tf = calcular_tf(query)
+    inverted = read_inverted()
+
+    scores = {}
+    lenght1 = {}
+
+    for document_id in nombres_docs:
+        scores[document_id] = 0
+        lenght1[document_id] = 0
+
+    wtfidf_scores, lenght2 = calcular_wtfidf(tf, inverted, len(nombres_docs))
+    scores, lenght1 = actualizar_puntajes(scores, lenght1, inverted, wtfidf_scores)
+    scores = normalizar_puntajes(scores, lenght1, lenght2)
+
     print("aqui2")
     orderedDic = sorted(scores.items(), key=lambda it: it[1], reverse=True)
     print(orderedDic)
