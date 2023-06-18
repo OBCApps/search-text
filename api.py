@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from typing import List , Dict, Any
 from src.search import search_tweet, search_tweet_web
 from src.inverted_index import create_index_of_web, create_invert_index
+import traceback
 
 
 app = FastAPI()
@@ -60,7 +61,8 @@ async def search_web(buscar: Search):
 
         return json_data
     except Exception as e:
-        json_data["respuesta"] = f"Error al cargar los datos: {str(e)}"
+        error_message = traceback.format_exc()
+        json_data["respuesta"] = f"Error al cargar los datos: {error_message}"
         return json_data
 
 
