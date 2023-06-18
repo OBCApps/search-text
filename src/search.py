@@ -50,7 +50,7 @@ def get_frecuency(palabras):
     return Counter(roots) 
 
 
-def documentos_relevantes(query): 
+""" def documentos_relevantes(query): 
     #print("DOCUMENTO RELEVANTES: " ,direction_dataset_clean )
     nanmes_docs = os.listdir(direction_dataset_clean) 
     print("nanmes_docs" , nanmes_docs)
@@ -70,14 +70,6 @@ def documentos_relevantes(query):
     lenght2 = 0 
     print("aqui1")
     for i in tf:
-        
-        """ print("tf[i]" , i)
-        print("names_docs" , nanmes_docs)
-        print("inverted[i]" , inverted) """
-        """ print(" tf[i])" , tf[i]) 
-        print("len(nanmes_docs)", len(nanmes_docs))
-        print("inverted[i]" , inverted) """
-        #print("len(str(inverted[i]).split(';'))", len(str(inverted[i]).split(';')))
         wtfidf = math.log(1 + tf[i]) * math.log(len(nanmes_docs) / len(str(inverted[i]).split(';')))   
         print("----")
         
@@ -102,8 +94,38 @@ def documentos_relevantes(query):
     print("aqui2")
     orderedDic = sorted(scores.items(), key=lambda it: it[1], reverse=True)
     print(orderedDic)
-    return orderedDic
+    return orderedDic """
 
+def documentos_relevantes(query):
+    document_names = os.listdir(direction_dataset_clean)
+    tf = get_frecuency(query)
+    inverted = read_inverted()
+
+    document_scores = [0] * len(document_names)
+    document_lengths = [0] * len(document_names)
+    length2 = 0
+
+    for term, term_frequency in tf.items():
+        wtfidf = math.log(1 + term_frequency) * math.log(len(document_names) / len(str(inverted[term]).split(';')))
+        length2 += wtfidf ** 2
+
+        postings = inverted[term].split(';')
+        for posting in postings:
+            document_id, frequency = posting.split(',')
+            document_id = int(document_id)
+            frequency = float(frequency)
+
+            document_lengths[document_id] += frequency ** 2
+            document_scores[document_id] += frequency * wtfidf
+
+    length2 = math.sqrt(length2)
+    for i, length in enumerate(document_lengths):
+        if length != 0:
+            document_lengths[i] = math.sqrt(length)
+            document_scores[i] /= (document_lengths[i] * length2)
+
+    ordered_documents = sorted(zip(document_names, document_scores), key=lambda x: x[1], reverse=True)
+    return ordered_documents
 
 
 def search_valid(documentos , palabras):        
