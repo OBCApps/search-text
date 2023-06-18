@@ -45,23 +45,23 @@ async def search_local(buscar : Search):
 
 
 @app.post("/search-web")
-async def search_web(buscar : Search):
+async def search_web(buscar: Search):
     json_data = {}
     try:
-        print("buscar" , buscar)
-        #response = JSONResponse(content = search_tweet(buscar.query , buscar.cantidad) , media_type="application/json")
+        print("buscar", buscar)
         inicio = time.time()
-        response = search_tweet_web(buscar.query , buscar.cantidad )
+        response = search_tweet_web(buscar.query, buscar.cantidad)
         fin = time.time()
 
-        json_data = {            
+        json_data = {
             "tiempo_ejecucion": fin - inicio,
-            "respuesta":  response,
+            "respuesta": response,
         }
-                
+
         return json_data
     except Exception as e:
         json_data["respuesta"] = f"Error al cargar los datos: {str(e)}"
+        return json_data
 
 
 """ @app.get("/prueba")

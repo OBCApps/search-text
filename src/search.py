@@ -82,6 +82,8 @@ def documentos_relevantes(query):
             j = j.split(',') 
             lenght1[j[0]] = lenght1[j[0]] + float(j[1])**2
             scores[j[0]] = scores[j[0]] + float(j[1])*wtfidf
+    
+    
     lenght2 = lenght2**0.5
     for i in lenght1:
         if lenght1[i] != 0:
