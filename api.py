@@ -46,6 +46,7 @@ async def search_local(buscar : Search):
 
 @app.post("/search-web")
 async def search_web(buscar : Search):
+    json_data = {}
     try:
         print("buscar" , buscar)
         #response = JSONResponse(content = search_tweet(buscar.query , buscar.cantidad) , media_type="application/json")
@@ -59,15 +60,15 @@ async def search_web(buscar : Search):
         }
                 
         return json_data
-    except KeyError:
-        raise HTTPException(status_code=404, detail="La palabra no fue encontrada")
+    except Exception as e:
+        json_data["respuesta"] = f"Error al cargar los datos: {str(e)}"
 
 
-@app.get("/prueba")
+""" @app.get("/prueba")
 def dev():
     #response = JSONResponse(content = search_tweet("prueba " , 3) , media_type="application/json")
     response = search_tweet("prueba " , 3)
-    return response
+    return response """
 
 
 @app.get("/add-js-local")
