@@ -1,6 +1,6 @@
 # Índice Invertido para Búsqueda y Recuperación de Información
 
-Este proyecto se centra en la implementación de un Índice Invertido eficiente para la búsqueda y recuperación de información en documentos de texto. En este README se presentarán los detalles del proyecto, incluyendo los objetivos, la descripción del sistema, los requisitos y las instrucciones de instalación.
+Este proyecto se centra en la implementación de un Índice Invertido eficiente para la búsqueda y recuperación de información en documentos de texto. En este informe se presentarán los detalles del proyecto, incluyendo los objetivos, la descripción del sistema, los requisitos y las instrucciones de instalación.
 
 ## Integrante  
 - Marco Wanly Obregón Casique [202010147]
@@ -78,8 +78,14 @@ ng serve --open
 
 
 ### Vista Web 
+- Vista general de búsqueda  
+![](./images/vista_general.PNG)  
 
+- Vista de resultado  
+![](./images/vista_resultado.PNG)
 
+- - Vista de Agregar  
+![](./images/vista_cargar_datos.PNG)
 ### Busqueda de elementos
 
 - Tokenizar y evaluar la relevancia de la consulta.
