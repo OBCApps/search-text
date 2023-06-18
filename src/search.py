@@ -40,7 +40,7 @@ def read_inverted():
             cont += 1
         else:
             break
-    print("indice invertido leido" , ind)
+    #print("indice invertido leido" , ind)
     return ind
 
 
@@ -55,6 +55,7 @@ def documentos_relevantes(query):
     nanmes_docs = os.listdir(direction_dataset_clean) 
     print("nanmes_docs" , nanmes_docs)
     tf = get_frecuency(query)
+    print("fercuencia query," , tf)
     dic = {} 
     
     inverted = read_inverted()
@@ -74,7 +75,7 @@ def documentos_relevantes(query):
         print("names_docs" , nanmes_docs)
         print("inverted[i]" , inverted) """
         wtfidf = math.log(1 + tf[i]) * math.log(len(nanmes_docs) / len(str(inverted[i]).split(';')))    
-        
+        print("----")
         
         dic[i] = wtfidf
 
