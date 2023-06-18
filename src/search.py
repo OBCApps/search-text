@@ -40,6 +40,7 @@ def read_inverted():
             cont += 1
         else:
             break
+    print("indice invertido leido" , ind)
     return ind
 
 
