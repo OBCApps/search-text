@@ -66,11 +66,11 @@ async def search_web(buscar: Search):
         return json_data
 
 
-""" @app.get("/prueba")
+@app.get("/prueba")
 def dev():
     #response = JSONResponse(content = search_tweet("prueba " , 3) , media_type="application/json")
     response = search_tweet("prueba " , 3)
-    return response """
+    return response
 
 
 @app.get("/add-js-local")
