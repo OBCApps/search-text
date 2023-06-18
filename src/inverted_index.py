@@ -49,7 +49,21 @@ def write_index(data_write, num_index):
         for term, value in data_write.items():
             data.write(f"{term}:{value}\n")
 
-    
+def load_jsons_frecuency():
+    all_jsns_frecuency = [] # Lista de cada jsn con su respectivas palabras y la cantidad que aparece
+
+    for filename in nanmes_docs:
+        lista = [] # Comentarios segun las veces que aparecen         
+        #with open(direction_dataset_clean + '\\' + filename, 'r', encoding='utf-8') as all_tweets:
+        with open(direction_dataset_clean + '/' + filename, 'r', encoding='utf-8') as all_tweets:
+            print(f"Load File: {direction_dataset_clean + '/' + filename}")
+            all_tweets_dictionary = json.load(all_tweets)
+            for tweet in all_tweets_dictionary: 
+                temp = clean_all2(all_tweets_dictionary[tweet]) 
+                lista.append(Counter(temp))
+            all_jsns_frecuency.append( sum(lista, Counter()) )
+    return all_jsns_frecuency
+
 def create_invert_index():
     # Debe escribir en indexs-local
     generate_clean_tweets()
@@ -63,18 +77,7 @@ def create_invert_index():
     global nanmes_docs
     nanmes_docs = os.listdir(direction_dataset_clean) 
     
-    all_jsns_frecuency = [] # Lista de cada jsn con su respectivas palabras y la cantidad que aparece
-
-    for filename in nanmes_docs:
-        lista = [] # Comentarios segun las veces que aparecen         
-        #with open(direction_dataset_clean + '\\' + filename, 'r', encoding='utf-8') as all_tweets:
-        with open(direction_dataset_clean + '/' + filename, 'r', encoding='utf-8') as all_tweets:
-            print(f"Load File: {direction_dataset_clean + '/' + filename}")
-            all_tweets_dictionary = json.load(all_tweets)
-            for tweet in all_tweets_dictionary: 
-                temp = clean_all2(all_tweets_dictionary[tweet]) 
-                lista.append(Counter(temp))
-            all_jsns_frecuency.append( sum(lista, Counter()) )  # Jntamos las palabras que son repetidas
+    all_jsns_frecuency = load_jsons_frecuency()
     
     calculate_TF_IDF(all_jsns_frecuency)
     print("... Construcción Local Finalizada .. ")

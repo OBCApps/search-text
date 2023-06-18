@@ -102,9 +102,9 @@ def documentos_relevantes(query):
     scores = normalizar_puntajes(scores, lenght1, lenght2)
 
     print("aqui2")
-    orderedDic = sorted(scores.items(), key=lambda it: it[1], reverse=True)
-    print(orderedDic)
-    return orderedDic
+    diccionario = sorted(scores.items(), key=lambda it: it[1], reverse=True)
+    print(diccionario)
+    return diccionario
 
 
 

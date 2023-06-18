@@ -68,15 +68,6 @@ def clean_all(text):
             ans.append(token)
     return ans
 
-# def clean_all2(text):
-#     ans = []
-    
-#     palabras = nltk.word_tokenize(remove_URL(remove_signes(remove_emojis(text))).lower())
-#     for token in palabras:
-#         if token not in stoplist:
-#             ans.append(token)
-#     return ans
-
 def clean_all2(name): # Hace limpieza, filtra palabras clave, retrona frecuencias
     ans = []
     stemmer = SnowballStemmer('spanish') # Cojemos las palabras clave

@@ -2,6 +2,12 @@
 
 Este proyecto se centra en la implementación de un Índice Invertido eficiente para la búsqueda y recuperación de información en documentos de texto. En este README se presentarán los detalles del proyecto, incluyendo los objetivos, la descripción del sistema, los requisitos y las instrucciones de instalación.
 
+## Integrante  
+- Marco Wanly Obregón Casique [202010147]
+
+## Docente  
+- Heider Sanchez Enriquez
+
 ## Objetivos
 
 El objetivo principal de este proyecto es desarrollar un sistema de búsqueda y recuperación de información basado en el Índice Invertido. Los objetivos específicos incluyen:
@@ -10,6 +16,7 @@ El objetivo principal de este proyecto es desarrollar un sistema de búsqueda y 
 - Realizar el preprocesamiento de los documentos de texto, incluyendo tokenización y filtrado de stopwords.
 - Aplicar el cálculo de pesos TF-IDF para la ponderación de términos.
 - Diseñar e implementar una interfaz de usuario para realizar consultas y mostrar los resultados.
+
 
 ## Descripción del Sistema
 
@@ -35,12 +42,108 @@ El frontend consiste en una interfaz de usuario que permite realizar consultas y
 
 ## Requisitos
 
-Para ejecutar el proyecto, se requiere tener instalado lo siguiente:
+Para ejecutar el proyecto, se requiere tener instalado lo siguiente:  
 
-- Python 3.x
-- Bibliotecas Python: [mencionar las bibliotecas utilizadas, como NLTK, Pandas, etc.]
+- Backend:  
+```
+fastapi==0.68.1
+uvicorn==0.15.0
+nltk==3.6.3
+psycopg2==2.9.1
+```
 
+- Frontend:  
+
+```
+Angular = 15.2.2
+Node = v14.20.1
+```
 ## Instrucciones de Instalación
 
-1. Clonar el repositorio del proyecto desde GitHub.
-2. Crear un entorno virtual en Python:
+- Backend:  
+```
+git clone https://github.com/OBCApps/search-text.git
+cd search-text
+pip install -r requirements.txt
+python3 -m uvicorn api:app --host 0.0.0.0 --port 8000
+```
+- Frontend:  
+```
+git clone https://github.com/OBCApps/search-text.git
+cd search-text
+npm install
+ng serve --open
+```
+## Función de las técnicas  
+
+
+### Vista Web 
+
+
+### Busqueda de elementos
+
+- Tokenizar y evaluar la relevancia de la consulta.
+- Comparar con los índices invertidos y ordenar los resultados.
+- Presentar los resultados más relevantes al usuario  
+
+```py
+def search_tweet(query, k): 
+    print("search_tweet_local(query, k):")
+    global direction_dataset_clean
+    direction_dataset_clean = "./src/clean_data" 
+
+    global direction_indexs
+    direction_indexs =  "./src/indexs-local/index"
+    documentos = documentos_relevantes(clean_all(query)) 
+    palabras = clean_all(query) 
+
+    list_fined = search_valid(documentos , palabras)
+
+    
+    return list_fined[:k]
+```  
+#### Diagrama  
+![](./images/search_diagram.PNG)
+
+### Creación del Indice Invertido  
+- Extraer el ID y el texto relevante de cada archivo JSON.
+- Leer y procesar los archivos como diccionarios.
+- Limpiar y tokenizar el texto de cada tweet.
+- Calcular la frecuencia de cada palabra en los tweets (tf - term frequency).
+- Calcular el puntaje TF-IDF para cada palabra.
+- Agrupar los resultados por cada 5 documentos.
+- Escribir un índice invertido en la memoria secundaria para cada grupo de documentos  
+
+```py  
+def create_invert_index():
+    generate_clean_tweets()
+    print("... Construcción Indice Local.. ")
+    global ruta_archivo
+    ruta_archivo = "./src/indexs-local"
+    
+    global direction_dataset_clean
+    direction_dataset_clean = "./src/clean_data"
+
+    global nanmes_docs
+    nanmes_docs = os.listdir(direction_dataset_clean) 
+    
+    all_jsns_frecuency = [] 
+
+    for filename in nanmes_docs:
+        lista = []       
+        with open(direction_dataset_clean + '/' + filename, 'r', encoding='utf-8') as all_tweets:
+            print(f"Load File: {direction_dataset_clean + '/' + filename}")
+            all_tweets_dictionary = json.load(all_tweets)
+            for tweet in all_tweets_dictionary: 
+                temp = clean_all2(all_tweets_dictionary[tweet]) 
+                lista.append(Counter(temp))
+            all_jsns_frecuency.append( sum(lista, Counter()) ) 
+    
+    calculate_TF_IDF(all_jsns_frecuency)
+    print("... Construcción Local Finalizada .. ")
+
+```  
+
+#### Diagrama  
+![](./images/index_diagram.PNG)
+
