@@ -2,8 +2,8 @@
 import os
 import json
 
-dataset_input = "./src/dataset/data_elecciones_dev"
-#dataset_input = "dataset\\data_elecciones_dev"
+#dataset_input = "./src/dataset/data_elecciones_dev"
+dataset_input = "dataset\\data_elecciones_dev"
 diretion_new_dataset = ".src/clean_data"
 
 def load_file(filename):
