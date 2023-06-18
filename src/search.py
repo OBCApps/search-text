@@ -117,7 +117,7 @@ def documentos_relevantes(query):
         
         for doc_term in inverted[term].split(';'):
             document_id, doc_frequency = doc_term.split(',')
-            document_id = int(document_id)
+            document_id = document_id
             doc_frequency = float(doc_frequency)
             
             document_lengths[document_id] += doc_frequency ** 2
