@@ -76,7 +76,7 @@ def documentos_relevantes(query):
         print("inverted[i]" , inverted) """
         print(" tf[i])" , tf[i]) 
         print("len(nanmes_docs)", len(nanmes_docs))
-        print("inverted[i]" , inverted[i])
+        print("inverted[i]" , inverted)
         #print("len(str(inverted[i]).split(';'))", len(str(inverted[i]).split(';')))
         wtfidf = math.log(1 + tf[i]) * math.log(len(nanmes_docs) / len(str(inverted[i]).split(';')))   
         print("----")
