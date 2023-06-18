@@ -150,5 +150,9 @@ def create_invert_index():
 ### Manejo de Memoria Secundaria  
 - Para este sistema se aplicó la división entre documentos. Cada 5 documentos procesados obtener un archivo indice. Esto con el fin de dividir el trabajo en partes más pequeñas y manejables. Esto es útil cuando se trabaja con documentos extensos y dividirlo en varios bloques evitamos problemas de sobrecarga en memoria y se mejora la eficiencia.  
 
+### Tabla de Comparación de tiempos  
+
+
+
 
 

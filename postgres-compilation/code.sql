@@ -11,7 +11,7 @@ CREATE INDEX id ON index_postgresql USING gin (text gin_trgm_ops);
 
 
 -- (2) Inserción de datos aleatorios
-INSERT INTO articles SELECT md5(random()::text), md5(random()::text) from ( SELECT * FROM generate_series(1,100000) AS id) AS x;
+INSERT INTO index_postgresql SELECT md5(random()::text), md5(random()::text) from ( SELECT * FROM generate_series(1,1663*59) AS id) AS x;
 
 -- (3) Consultas
 -- Consulta: Sin indexar
