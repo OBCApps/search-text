@@ -138,8 +138,9 @@ def search_tweet_web(query, k):
     direction_indexs = "./src/indexs/prueba"
     print("search_tweet_web(query, k):")
     documentos = documentos_relevantes(clean_all(query)) 
+    print("DOCUMENTOS" , documentos)
     palabras = clean_all(query) 
-
+    print("PALABRAS" , documentos)
     list_fined = search_valid(documentos , palabras)
 
     
