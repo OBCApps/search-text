@@ -2,8 +2,8 @@
 import os
 import json
 
-dataset_input = "./src/dataset/data_elecciones"
-#dataset_input = "dataset\\data_elecciones_dev"
+#dataset_input = "./src/dataset/data_elecciones_dev"
+dataset_input = "dataset\\data_elecciones_dev"
 diretion_new_dataset = ".src/clean_data"
 
 def load_file(filename):
@@ -59,17 +59,21 @@ def generate_clean_tweets():
 
 
 def generate_clean_tweets_web(json_files):
+    print("... Limpiando tweets ...")
     print(type(json_files))
     global diretion_new_dataset
     diretion_new_dataset = "./src/clean_data_dev"
     
-    output_file = os.path.join(diretion_new_dataset, "agregado.json")
+    #output_file = os.path.join(diretion_new_dataset, "agregado.json")
     if not os.path.exists(diretion_new_dataset):
         os.makedirs(diretion_new_dataset)
-
-    clean_tweets = id_text(json_files)
-    write_file(clean_tweets, output_file)
-    
+    it = 0
+    for filename in json_files:
+        output_file = os.path.join(diretion_new_dataset,"agregado" + str(it) + ".json")        
+        tweets = json_files[it]
+        clean_tweets = id_text(tweets)
+        write_file(clean_tweets, output_file)   
+        it+=1
     
     print("... Limpieza finalizada ...")
 
@@ -83,6 +87,19 @@ def generate_clean_tweets_web(json_files):
 #     contenido_json = f.read()
 # data = json.loads(contenido_json)
 # #print(data)
+# generate_clean_tweets_web(data)
+
+# Parte 2 (con mas archivos)
+        
+# data = []
+# for filename in os.listdir(dataset_input):
+#     if filename.endswith(".json"):
+#         input_file = os.path.join(dataset_input, filename)
+#         tweets = load_file(input_file)
+#         data.append(tweets)
+        
+# with open("datos-web-dev.json", "w") as archivo:
+#     json.dump(data, archivo)
 # generate_clean_tweets_web(data)
 
 

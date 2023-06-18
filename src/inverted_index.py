@@ -93,17 +93,18 @@ def create_index_of_web(data):
     nanmes_docs = os.listdir(direction_dataset_clean) 
     
     print("... Construcción Indice Web.. ")
-    filename = "agregado.json"
-    all_jsns_frecuency = []
-    lista = [] # Comentarios segun las veces que aparecen         
+    all_jsns_frecuency = [] # Lista de cada jsn con su respectivas palabras y la cantidad que aparece
+
+    for filename in nanmes_docs:
+        lista = [] # Comentarios segun las veces que aparecen         
         #with open(direction_dataset_clean + '\\' + filename, 'r', encoding='utf-8') as all_tweets:
-    with open(direction_dataset_clean + '/' + filename, 'r', encoding='utf-8') as all_tweets:
-        print(f"Load File: {direction_dataset_clean + '/' + filename}")
-        all_tweets_dictionary = json.load(all_tweets)
-        for tweet in all_tweets_dictionary: 
-            temp = clean_all(all_tweets_dictionary[tweet]) 
-            lista.append(Counter(temp))
-        all_jsns_frecuency.append( sum(lista, Counter()) ) 
+        with open(direction_dataset_clean + '/' + filename, 'r', encoding='utf-8') as all_tweets:
+            print(f"Load File: {direction_dataset_clean + '/' + filename}")
+            all_tweets_dictionary = json.load(all_tweets)
+            for tweet in all_tweets_dictionary: 
+                temp = clean_all(all_tweets_dictionary[tweet]) 
+                lista.append(Counter(temp))
+            all_jsns_frecuency.append( sum(lista, Counter()) )  # Jnt
     calculate_TF_IDF(all_jsns_frecuency)
     print("... Construcción Web Finalizada .. ")
 
