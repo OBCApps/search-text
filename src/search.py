@@ -49,7 +49,7 @@ def get_frecuency(palabras):
 
 
 def documentos_relevantes(query): 
-    print("DOCUMENTO RELEVANTES: " ,direction_dataset_clean )
+    #print("DOCUMENTO RELEVANTES: " ,direction_dataset_clean )
     nanmes_docs = os.listdir(direction_dataset_clean) 
     tf = get_frecuency(query)
     dic = {} 
@@ -64,7 +64,7 @@ def documentos_relevantes(query):
         lenght1[i] = 0
     
     lenght2 = 0 
-    
+    print("aqui1")
     for i in tf:
         
         """ print("tf[i]" , i)
@@ -89,7 +89,9 @@ def documentos_relevantes(query):
     for i in scores:
         if lenght1[i] != 0:
             scores[i] = scores[i]/(lenght1[i]*lenght2)
+    print("aqui2")
     orderedDic = sorted(scores.items(), key=lambda it: it[1], reverse=True)
+    print(orderedDic)
     return orderedDic
 
 
