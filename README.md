@@ -30,6 +30,7 @@ En el backend, se implementa el Índice Invertido y se realiza el procesamiento 
 - Filtrado de stopwords: Eliminar palabras comunes que no aportan información relevante.
 - Cálculo de pesos TF-IDF: Asignar pesos a los términos según su frecuencia en los documentos y en la colección.
 - Construcción del Índice Invertido: Estructurar y organizar la información de los términos y documentos.
+- Implementación de los Apis a consumir -> Busqueda y Carga.  
 
 ### Frontend
 
@@ -83,6 +84,7 @@ ng serve --open
 
 ## Función de las técnicas  
 
+![](./images/flujoback.PNG)
 
 ### Vista Web 
 - Vista general de búsqueda  
