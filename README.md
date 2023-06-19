@@ -94,7 +94,8 @@ ng serve --open
 - - Vista de Agregar  
 ![](./images/vista_cargar_datos.PNG)  
 
-### Vista Backend  
+### Backends Implementados  
+![](./images/backend.PNG)  
 
 
 ### Busqueda de elementos
