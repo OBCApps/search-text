@@ -57,7 +57,13 @@ psycopg2==2.9.1
 ```
 Angular = 15.2.2
 Node = v14.20.1
-```
+```  
+### Aplicaciones adicionales añadidas
+
+- Se creo un servicio EC2 en amazon donde la base de datos se encuentra levantada  
+![](./images/ec2amazon.PNG)  
+
+
 ## Instrucciones de Instalación
 
 - Backend:  
@@ -73,7 +79,8 @@ git clone https://github.com/OBCApps/search-text.git
 cd search-text
 npm install
 ng serve --open
-```
+```  
+
 ## Función de las técnicas  
 
 
@@ -85,11 +92,15 @@ ng serve --open
 ![](./images/vista_resultadoPNG.PNG)
 
 - - Vista de Agregar  
-![](./images/vista_cargar_datos.PNG)
+![](./images/vista_cargar_datos.PNG)  
+
+### Vista Backend  
+
+
 ### Busqueda de elementos
 
 - Tokenizar y evaluar la relevancia de la consulta.
-- Comparar con los índices invertidos y ordenar los resultados.
+- Comparar con los índices invertidos aplicando la similitud del coseno y ordenar los resultados.
 - Presentar los resultados más relevantes al usuario  
 
 ```py
